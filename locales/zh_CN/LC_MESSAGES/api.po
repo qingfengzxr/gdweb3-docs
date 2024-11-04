@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C)
+# This file is distributed under the same license as the GDWeb3 package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GDWeb3 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-04 17:16+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: ../../source/api.rst:2
+msgid "API Reference"
+msgstr "API参考"
+
+#: ../../source/api.rst:5
+msgid "Web3"
+msgstr "Web3"
+
+#: ../../source/api.rst:7
+msgid ""
+"The web3 class is an abstraction for all blockchain networks. You can use"
+" this class to obtain instances for interacting with different networks."
+msgstr "Web3类是对所有区块链网络的一个抽象。可以通过这个类获取不同网络的交互实例。"
+
+#: ../../source/api.rst:10 ../../source/api.rst:23
+msgid "Example"
+msgstr "示例"
+
+#: ../../source/api.rst:19
+msgid "Optimism"
+msgstr "Optimism"
+
+#: ../../source/api.rst:20
+msgid ""
+"Optimism is a class used for interacting with the OP network. It "
+"encapsulates the JSON-RPC interfaces and core protocols needed for "
+"interacting with the OP network."
+msgstr "Optimism 是一个用于与 OP 网络交互的类。它封装了与 OP 网络交互所需的 JSON-RPC 接口和核心协议。"
+
+#: ../../source/api.rst:43
+msgid "How to get Node's RPC URL"
+msgstr ""
+
+#: ../../source/api.rst:44
+msgid "TODO"
+msgstr ""
+
+#: ../../source/api.rst:47
+msgid "LegacyTx"
+msgstr ""
+
+#: ../../source/api.rst:50
+msgid "BigInt"
+msgstr ""
+
+#: ../../source/api.rst:53
+msgid "JsonrpcHelper"
+msgstr ""
+
+#: ../../source/api.rst:56
+msgid "ABIHelper"
+msgstr ""
+
+#: ../../source/api.rst:59
+msgid "EthAccountManager"
+msgstr ""
+
+#: ../../source/api.rst:62
+msgid "EthAccount"
+msgstr ""
+
+#: ../../source/api.rst:65
+msgid "EthWallet"
+msgstr ""
+
+#: ../../source/api.rst:68
+msgid "EthWalletManager"
+msgstr ""
+
+#: ../../source/api.rst:71
+msgid "Secp256k1Wrapper"
+msgstr ""
+
+#: ../../source/api.rst:74
+msgid "KeccakWrapper"
+msgstr ""
+

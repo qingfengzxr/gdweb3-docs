@@ -1,5 +1,5 @@
 """
-Lumache - Python library for cooks and food lovers.
+GDWEB3 - Godot custom module for interact with optimism network.
 """
 
 __version__ = "0.1.0"

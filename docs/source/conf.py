@@ -1,15 +1,8 @@
-# Configuration file for the Sphinx documentation builder.
+# -- General configuration
 
-# -- Project information
-
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
-
+project = 'GDWeb3'
 release = '0.1'
 version = '0.1.0'
-
-# -- General configuration
 
 extensions = [
     'sphinx.ext.duration',
@@ -31,5 +24,12 @@ templates_path = ['_templates']
 
 html_theme = 'sphinx_rtd_theme'
 
+html_static_path = ['_static']
+html_css_files = [
+    './_static/custom.css',
+]
+
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+locale_dirs = ['locale/']
