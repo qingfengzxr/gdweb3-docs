@@ -56,9 +56,9 @@ RPC methods
 
 LegacyTx
 --------
-When interacting with a blockchain network, we usually need to send a transaction to it. 
-Legacy is a basic transaction type defined in the ETH protocol. 
-The LegacyTx class is a wrapper designed to support this transaction type. 
+When interacting with a blockchain network, we usually need to send a transaction to it.
+Legacy is a basic transaction type defined in the ETH protocol.
+The LegacyTx class is a wrapper designed to support this transaction type.
 It includes the variables and methods needed to create a transaction.
 
 Example
@@ -196,9 +196,211 @@ Parameters:
 Returns:
     void
 
+8. rlp_hash
+^^^^^^^^^^^
+Can obtain the keccak256 hash value of LegacyTx after RLP encoding.
+
+.. code-block:: gdscript
+
+    # return: PackedByteArray
+    var hash = legacyTx.rlp_hash()
+
+Parameters:
+    None
+
+Returns:
+    PackedByteArray
+
+9. hash
+^^^^^^^
+Call this function to get the hash of the transaction. It nceessary to call after sign the transaction.
+
+.. code-block:: gdscript
+
+    # return: PackedByteArray
+    var hash = legacyTx.hash()
+
+Parameters:
+    None
+
+Returns:
+    PackedByteArray
+
+10. sign_tx
+^^^^^^^^^^^
+Sign the LegacyTx using a signer constructed from a private key.
+
+.. code-block:: gdscript
+
+    # signer: Ref<Secp256k1Wrapper>
+    # return: void
+    legacyTx.sign_tx(signer)
+
+Parameters:
+    signer: Ref<Secp256k1Wrapper>
+
+Returns:
+    int: 0 if success, -1 if failed
+
+11. sign_tx_by_account
+^^^^^^^^^^^^^^^^^^^^^^
+Sign the LegacyTx by use EthAccount.
+
+.. code-block:: gdscript
+
+    # account: Ref<EthAccount>
+    # return: void
+    legacyTx.sign_tx_by_account(account)
+
+Parameters:
+    account: Ref<EthAccount>
+
+Returns:
+    int: 0 if success, -1 if failed
+
+
+12. signedtx_marshal_binary
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Marshal the signed transaction into binary data and encode to hex string.
+
+.. code-block:: gdscript
+
+    # return: PackedByteArray
+    var res = legacyTx.signedtx_marshal_binary()
+
+Parameters:
+    None
+
+Returns:
+    String
+
 
 BigInt
 ------
+The BigInt class implements some basic operations related to large numbers, utilizing the GMP library to fulfill its requirements.
+
+1. add
+^^^^^^
+Add two BigInt objects.
+
+.. code-block:: gdscript
+
+    # other: BigInt
+    # return: BigInt
+    var res = bigInt.add(other)
+
+2. sub
+^^^^^^
+Subtract two BigInt objects.
+
+.. code-block:: gdscript
+
+    # other: BigInt
+    # return: BigInt
+    var res = bigInt.sub(other)
+
+3. mul
+^^^^^^
+Multiply two BigInt objects.
+
+.. code-block:: gdscript
+
+    # other: BigInt
+    # return: BigInt
+    var res = bigInt.mul(other)
+
+4. div
+^^^^^^
+Divide two BigInt objects.
+
+.. code-block:: gdscript
+
+    # other: BigInt
+    # return: BigInt
+    var res = bigInt.div(other)
+
+5. mod
+^^^^^^
+Get the remainder of the division of two BigInt objects.
+
+.. code-block:: gdscript
+
+    # other: BigInt
+    # return: BigInt
+    var res = bigInt.mod(other)
+
+6. abs
+^^^^^^
+Get the absolute value of a BigInt object.
+
+.. code-block:: gdscript
+
+    # return: BigInt
+    var res = bigInt.abs()
+
+7. cmp
+^^^^^^
+Compare two BigInt objects.
+
+.. code-block:: gdscript
+
+    # other: BigInt
+    # return: int
+    var res = bigInt.cmp(other)
+
+Returns:
+    int: 1 if bigInt > other, 0 if bigInt == other, -1 if bigInt < other
+
+8. sgn
+^^^^^^
+Returns the sign of m_number as an integer:
+
+.. code-block:: gdscript
+
+    # return: int
+    var res = bigInt.sgn()
+
+Returns:
+    int: 1 if bigInt > 0, 0 if bigInt == 0, -1 if bigInt < 0
+
+8. is_zero
+^^^^^^^^^^
+Check if the BigInt object is zero.
+
+.. code-block:: gdscript
+
+    # return: bool
+    var res = bigInt.is_zero()
+
+9. from_string
+^^^^^^^^^^^^^^
+Create a BigInt object from a string.
+
+.. code-block:: gdscript
+
+    # str: string
+    # return: void
+    bigInt.from_string(str)
+
+10. from_hex
+^^^^^^^^^^^^
+Create a BigInt object from a hex string.
+
+.. code-block:: gdscript
+
+    # str: string
+    # return: void
+    bigInt.from_hex(str)
+
+11. get_string
+^^^^^^^^^^^^^^
+Get the string representation of the BigInt object.
+
+.. code-block:: gdscript
+
+    # return: string
+    var res = bigInt.get_string()
+
 
 JsonrpcHelper
 -------------
