@@ -279,6 +279,8 @@ BigInt
 ------
 The BigInt class implements some basic operations related to large numbers, utilizing the GMP library to fulfill its requirements.
 
+Methods
+~~~~~~~
 1. add
 ^^^^^^
 Add two BigInt objects.
