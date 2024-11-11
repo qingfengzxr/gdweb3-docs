@@ -63,24 +63,25 @@ It includes the variables and methods needed to create a transaction.
 
 Example
 ~~~~~~~
+The following example demonstrates how to construct a LegacyTx object and set its various properties.
 
 .. code-block:: gdscript
 
-	# create a legacyTx
-	var legacyTx = LegacyTx.new()
-	legacyTx.set_nonce(get_nonce)
-	var gas_price = op.suggest_gas_price()
-	legacyTx.set_gas_price(gas_price)
-	legacyTx.set_gas_limit(828516)
-	var value = BigInt.new()
-	value.from_string("0")
-	legacyTx.set_value(value)
-	legacyTx.set_data(packed)
+    # create a legacyTx
+    var legacyTx = LegacyTx.new()
+    legacyTx.set_nonce(get_nonce)
+    var gas_price = op.suggest_gas_price()
+    legacyTx.set_gas_price(gas_price)
+    legacyTx.set_gas_limit(828516)
+    var value = BigInt.new()
+    value.from_string("0")
+    legacyTx.set_value(value)
+    legacyTx.set_data(packed)
 
-	var chain_id = BigInt.new()
-	chain_id.from_string("11155420")
-	legacyTx.set_chain_id(chain_id)
-	legacyTx.set_to_address(CONTRACT_ADDRESS)
+    var chain_id = BigInt.new()
+    chain_id.from_string("11155420")
+    legacyTx.set_chain_id(chain_id)
+    legacyTx.set_to_address(CONTRACT_ADDRESS)
 
 Methods
 ~~~~~~~
@@ -403,12 +404,379 @@ Get the string representation of the BigInt object.
     # return: string
     var res = bigInt.get_string()
 
+12. to_hex
+^^^^^^^^^^
+Get the hex string with 0x prefix representation of the BigInt object.
+
+.. code-block:: gdscript
+
+    # return: string
+    var res = bigInt.to_hex()
+
 
 JsonrpcHelper
 -------------
+.. note::
+   TODO
+
 
 ABIHelper
 ---------
+The Ethereum ABI (Application Binary Interface) is a standardized interface between Ethereum smart contracts and external applications. The ABI defines how to encode and decode the functions and events of a smart contract, allowing external applications to interact with the smart contract.
+
+For more details on ABI, you can refer to `here <https://docs.soliditylang.org/en/latest/abi-spec.html>`_.
+
+The ABIHelper class is a utility class for handling ABI encoding and decoding. It provides user-friendly methods for processing ABI encoding and decoding.
+
+Unit test code file: abihelper_unit_test.gd
+
+Methods
+~~~~~~~
+1. unmarshal_from_json
+^^^^^^^^^^^^^^^^^^^^^^
+Parse the ABI JSON string of the smart contract into the ABIHelper object. This sets a series of properties required for ABI encoding and decoding, including function lists, parameter types, etc., for the ABIHelper object.
+
+.. code-block:: gdscript
+
+    # json: string
+    # return: bool
+    const CONTRACT_ABI := """
+    [{"inputs":[{"components":[{"internalType":"uint32","name":"a","type":"uint32"},{"internalType":"uint256[]","name":"b","type":"uint256[]"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T[]","name":"c","type":"tuple[]"},{"internalType":"int256[3]","name":"d","type":"int256[3]"}],"internalType":"struct Test.S","name":"s","type":"tuple"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T","name":"t","type":"tuple"},{"internalType":"uint256","name":"u","type":"uint256"},{"internalType":"address","name":"user","type":"address"},{"internalType":"bytes10","name":"b10","type":"bytes10"}],"name":"f","outputs":[],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"g","outputs":[{"components":[{"internalType":"uint32","name":"a","type":"uint32"},{"internalType":"uint256[]","name":"b","type":"uint256[]"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T[]","name":"c","type":"tuple[]"},{"internalType":"int256[3]","name":"d","type":"int256[3]"}],"internalType":"struct Test.S","name":"","type":"tuple"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T","name":"","type":"tuple"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"h","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]
+    """
+    var h = ABIHelper.new()
+    var res = h.unmarshal_from_json(CONTRACT_ABI)
+
+Parameters:
+    json: string; ABI JSON string. TODO: how to get abi string.
+
+Returns:
+    bool: true if success, false if failed
+
+2. pack
+^^^^^^^
+Pack the parameters into a byte array according to the ABI encoding rules.
+
+Here we need to use two examples to illustrate the usage of the pack function. A simple example is used to explain the basic usage, and a complex example is used to explain how to handle complex data structures.
+
+**Example 1: ERC20 transfer**
+
+For an ERC20 contract, the definition of its transfer function is as follows:
+
+.. code-block:: solidity
+
+    function transfer(address recipient, uint256 amount) public returns (bool) {
+        _transfer(msg.sender, recipient, amount);
+        return true;
+    }
+
+You can see that the transfer function accepts two parameters: a recipient of type address and an amount of type uint256. Its interface ABI definition is similar to:
+
+.. code-block:: json
+
+    [
+        {
+            "constant": false,
+            "inputs": [
+            {
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "name": "amount",
+                "type": "uint256"
+            }
+            ],
+            "name": "transfer",
+            "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+
+So how do we call this function? The following code demonstrates the process of calling this function using GDScript.
+
+.. code-block:: gdscript
+
+    const CONTRACT_ABI := ... # ABI definition of the ERC20 contract
+    var h = ABIHelper.new()
+    var res = h.unmarshal_from_json(CONTRACT_ABI)
+
+    var params = [
+        # receipient
+        "0xeB98753449AD50d30561a66CA48BF69EEcaD4bC3",
+        # amount
+        "123456"
+    ]
+
+    var packed = h.pack("transfer", params)
+
+Parameters:
+    name: string; method name
+
+    params: Array; parameters for calling the method
+
+Returns:
+    PackedByteArray: packed data
+
+Let's explain this code in detail. First, we create an ABIHelper object `h`, and then call the `unmarshal_from_json` function, passing in the ABI definition of the ERC20 contract. This allows the `h` object to understand the ABI definition of the ERC20 contract.
+
+Next, we define a `params` array containing two elements. The first element is the recipient's address, and the second element is the amount value. These correspond to the two parameters of the `transfer` function.
+
+You can understand it as: `params[0] => recipient`, `params[1] => amount`.
+
+Therefore, you can easily deduce that the order of elements in the `params` array must match the order of parameters in the contract function. This is very important; otherwise, you will get incorrect results.
+
+Finally, we call the `pack` function, passing in the function name `transfer` and the parameters array, to get the packed result.
+
+We will use the packed result as the data for the `LegacyTx` and send it to the blockchain to call the `transfer` function of the ERC20 contract.
+
+
+**Example 2: Complex Structure Call Example**
+
+For some complex business scenarios, people often define custom data structures and pass them when calling functions, such as arrays, structs, nested structs, etc.
+
+Here, we use a complex nested struct as an example to illustrate how to use the `pack` function for complex data structures. Through this example, you will fully understand the behavior of the `pack` function.
+
+Now we have a contract that defines many complex data structures, with structs nested within other structs. The contract is defined as follows:
+
+.. code-block:: solidity
+
+    // SPDX-License-Identifier: MIT
+    pragma solidity ^0.7.6;
+    pragma experimental ABIEncoderV2;
+
+    contract Test {
+        struct S {
+            uint32 a;
+            uint[] b;
+            T[] c;
+            int256[3] d;
+        }
+
+        struct C {
+            string[] t;
+        }
+
+        struct T {
+            C[] x;
+            bytes10 y;
+        }
+
+        mapping (address=>uint256) balance;
+
+        function f(S memory s, T memory t, uint u, address user, bytes10 b10) public pure {
+            // This is a pure function, it does not modify the state nor read the state
+        }
+
+        function g() public pure returns (S memory, T memory, address, uint) {
+            // Initialize S struct
+            S memory s;
+            s.a = 1;
+            s.b = new uint[](2);
+            s.b[0] = 2;
+            s.b[1] = 3;
+            s.c = new T[](1);
+            s.c[0].x = new C[](1);
+            s.c[0].x[0].t = new string[](2);
+            s.c[0].x[0].t[0] = "STRING_TEST"; // Uppercase string
+            s.c[0].x[0].t[1] = "string_test"; // Lowercase string
+            s.c[0].y = bytes10(0x04000000000000000000); // 4 in bytes10
+            s.d[0] = 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF; // Large number 1
+            s.d[1] = 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE; // Large number 2
+            s.d[2] = ~int256(0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF); // Large number 3 (negative number)
+
+            // Initialize T struct
+            T memory t;
+            t.x = new C[](1);
+            t.x[0].t = new string[](2);
+            t.x[0].t[0] = "STRING_test"; // Mixed case string
+            t.x[0].t[1] = "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"; // String longer than 32 bytes
+            t.y = bytes10(0x08000000000000000000); // 8 in bytes10
+
+            // Initialize address
+            address addr = address(0x8eee12Bd33Ec72a277ffA9ddF246759878589D3b);
+
+            // Initialize uint
+            uint u = 9;
+
+            return (s, t, addr, u);
+        }
+
+        function h(address user) public returns (uint256) {
+            balance[user] += 1;
+            return balance[user];
+        }
+    }
+
+.. note::
+    This Test contract will also be used when introducing the unpack function.
+
+We will use the f() function as an example to illustrate how to use the pack function.
+
+First, we need to obtain the ABI definition of the contract. For the above contract code, its ABI definition is as follows:
+
+.. code-block:: gdscript
+
+    const CONTRACT_ABI := """
+    [{"inputs":[{"components":[{"internalType":"uint32","name":"a","type":"uint32"},{"internalType":"uint256[]","name":"b","type":"uint256[]"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T[]","name":"c","type":"tuple[]"},{"internalType":"int256[3]","name":"d","type":"int256[3]"}],"internalType":"struct Test.S","name":"s","type":"tuple"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T","name":"t","type":"tuple"},{"internalType":"uint256","name":"u","type":"uint256"},{"internalType":"address","name":"user","type":"address"},{"internalType":"bytes10","name":"b10","type":"bytes10"}],"name":"f","outputs":[],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"g","outputs":[{"components":[{"internalType":"uint32","name":"a","type":"uint32"},{"internalType":"uint256[]","name":"b","type":"uint256[]"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T[]","name":"c","type":"tuple[]"},{"internalType":"int256[3]","name":"d","type":"int256[3]"}],"internalType":"struct Test.S","name":"","type":"tuple"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T","name":"","type":"tuple"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"h","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]
+    """
+
+Now, let's explain in detail how to pack the f() function of this contract. The following is an example code in GDScript that demonstrates how to encode the f() function call using the pack function:
+
+.. code-block:: gdscript
+
+    var h = ABIHelper.new()
+    var res = h.unmarshal_from_json(CONTRACT_ABI)
+
+    var params = [
+        [
+            1, # s.a
+            [2, 3], # s.b
+            [
+                [
+                    [
+                        [
+                            ["STRING_TEST", "string_test"], # s.c[0].x[0].t
+                        ], # s.c[0].x[0]
+                    ], # s.c[0].x
+                    [4, 0, 0, 0, 0, 0, 0, 0, 0, 0], # s.c[0].y
+                ], # s.c[0]
+            ], # s.c
+            [
+                # 7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+                "57896044618658097711785492504343953926634992332820282019728792003956564819967", # s.d[0]
+                # 7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe
+                "57896044618658097711785492504343953926634992332820282019728792003956564819966", # s.d[1]
+                146 # s.d[2]
+            ], # s.d
+        ], # s
+        [
+            [
+                [
+                    ["STRING_test", "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"], # t.x[0].t
+                ], # t.x[0]
+            ], # t.x
+            [8, 0, 0, 0, 0, 0, 0, 0, 0, 0], # t.y
+        ], # t
+        9, # u
+        "0x8eee12Bd33Ec72a277ffA9ddF246759878589D3b", # user
+        [116, 119, 111, 101, 102, 103, 104, 105, 106, 107] # b10
+    ]
+    var packed = h.pack("f", params)
+
+We can see that the `f()` function accepts 5 parameters, which are:
+
+    * s: struct S
+    * t: struct T
+    * u: uint
+    * user: address
+    * b10: bytes10
+
+The struct S and struct T are composite structures containing multiple fields, with nested structures within them. We need to fill these fields into the params array in the order defined by the contract.
+
+    * params[0] => s
+    * params[1] => t
+    * params[2] => u
+    * params[3] => user
+    * params[4] => b10
+
+In the above code, comments are used to explain the value of each field. This should help you clearly understand how to fill the params array.
+
+Additionally, this example contract includes common data types and some special data, such as large numbers, mixed-case strings, and strings longer than 32 bytes. This should help you better understand how to use the pack function.
+
+.. note::
+
+    Now, you should be able to infer the following logical relationship:
+
+    For fields within a struct, we use an array to represent them, where each element in the array corresponds to a field in the struct.
+    The order of the elements in the array must match the order of the fields defined in the struct; otherwise, it will result in incorrect outcomes.
+
+
+3. unpack
+^^^^^^^^^
+First, it is important to note that we do not provide a direct `unpack` function. Instead, we offer the following two methods to achieve the unpack functionality:
+
+    * unpack_into_dictionary: Decodes the ABI-encoded data into a dictionary object.
+    * unpack_into_array: Decodes the ABI-encoded data into an array.
+
+Both methods decode the ABI-encoded data into specific data structures based on the ABI definition, but the resulting data structures provided to the developer for manipulation are different.
+
+We will continue using the smart contract introduced in the `pack` function section. However, this time we will use the `g()` function for illustration.
+
+The `g()` function returns 4 parameters, which are:
+
+    * 0: struct S
+    * 1: struct T
+    * 2: address
+    * 3: uint
+
+.. note::
+
+    These parameters are defined as anonymous in the ABI definition, where the name is empty. Therefore, we use numerical indices to represent these parameters.
+
+Additionally, the return value of the `g()` function is designed to include complex data and data structures, such as large numbers, structs, arrays, etc. This helps you better understand how to use the unpack function.
+
+.. note::
+
+    For large numbers, we uniformly use strings for wrapping instead of directly using the BigInt class. This approach avoids some unnecessary issues. If you need to perform operations on these numbers, you can use the BigInt class for processing.
+
+**Example 1: unpack_into_dictionary**
+
+.. code:: gdscript
+
+    var h = ABIHelper.new()
+    var res = h.unmarshal_from_json(CONTRACT_ABI)
+
+    var callret = "000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000003600000000000000000000000008eee12bd33ec72a277ffa9ddf246759878589d3b0000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f54455354000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b737472696e675f7465737400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f74657374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004d535452494e475f544553545f4d4f52455f5448414e5f33325f42595445535f6162636465666768696a6b6c6d6e6f707172737475767778797a5f3030303030303031313131313132323232323200000000000000000000000000000000000000"
+    var result = {}
+    var err = h.unpack_into_dictionary("g", callret.hex_decode(), result)
+    if err != OK:
+        assert(false, "unpack_into_dictionary failed!")
+    # example correct output:
+    # { "0": { "a": 1, "b": ["2", "3"], "c": [{ "x": [{ "t": ["STRING_TEST", "string_test"] }], "y": [4, 0, 0, 0, 0, 0, 0, 0, 0, 0] }], "d": ["57896044618658097711785492504343953926634992332820282019728792003956564819967", "57896044618658097711785492504343953926634992332820282019728792003956564819966", "-57896044618658097711785492504343953926634992332820282019728792003956564819968"] }, "1": { "x": [{ "t": ["STRING_test", "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"] }], "y": [8, 0, 0, 0, 0, 0, 0, 0, 0, 0] }, "2": "8eee12bd33ec72a277ffa9ddf246759878589d3b", "3": "9" }
+
+**Example 2: unpack_into_array**
+
+.. code:: gdscript
+
+    var h = ABIHelper.new()
+    var res = h.unmarshal_from_json(CONTRACT_ABI)
+
+    var callret = "000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000003600000000000000000000000008eee12bd33ec72a277ffa9ddf246759878589d3b0000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f54455354000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b737472696e675f7465737400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f74657374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004d535452494e475f544553545f4d4f52455f5448414e5f33325f42595445535f6162636465666768696a6b6c6d6e6f707172737475767778797a5f3030303030303031313131313132323232323200000000000000000000000000000000000000"
+    var result = []
+    err = h.unpack_into_array("g", callret.hex_decode(), result)
+    if err != OK:
+        assert(false, "unpack_into_array failed!")
+
+    # example correct output:
+    # [[1, ["2", "3"], [[[[["STRING_TEST", "string_test"]]], [4, 0, 0, 0, 0, 0, 0, 0, 0, 0]]], ["57896044618658097711785492504343953926634992332820282019728792003956564819967", "57896044618658097711785492504343953926634992332820282019728792003956564819966", "-57896044618658097711785492504343953926634992332820282019728792003956564819968"]], [[[["STRING_test", "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"]]], [8, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "8eee12bd33ec72a277ffa9ddf246759878589d3b", "9"]
+
+The above two examples correspond to using `unpack_into_dictionary` and `unpack_into_array` to decode ABI-encoded data. Their usage is as follows:
+
+1. Initialize an `ABIHelper` object.
+2. Call the `unmarshal_from_json` function, passing in the ABI definition of the contract.
+3. Define `callret`. Here, a test return value after calling the `g()` function is directly provided. Typically, this value is obtained by calling a function of the smart contract, usually by calling the `call_contract()` method.
+4. Define a `result` variable to store the decoded data. Depending on the chosen function, `result` needs to be either a dictionary object or an array object.
+5. Call the `unpack_into_dictionary` or `unpack_into_array` function to decode `callret` into `result`.
+
+
+For `unpack_into_dictionary`, the decoded value is a dictionary where the keys are the indices of the parameters or the variable names of the struct members, and the values are the parameter values.
+
+.. note::
+
+    Solidity allows naming the return values of functions. If the return values are named, the keys in the returned dictionary will be those names. If they are not named, the keys will be the indices of the parameters.
+
+    function getDetails() public pure returns (uint256 id, string memory name, bool isActive);
+
+For `unpack_into_array`, the decoded value is an array where each element corresponds to a parameter value.
+
+
 
 EthAccountManager
 -----------------
