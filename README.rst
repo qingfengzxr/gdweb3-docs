@@ -1,9 +1,20 @@
-Template for the Read the Docs tutorial
-=======================================
+## Quick Start
+### Install sphinx
+```shell
+$ python -m venv .venv
+$ source .venv/bin/activate
+(.venv) $ python -m pip install sphinx
+```
 
-This GitHub template includes fictional Python library
-with some basic Sphinx docs.
 
-Read the tutorial here:
+### Install theme
+```shell
+$ pip install sphinx_rtd_theme
+```
 
-https://docs.readthedocs.io/en/stable/tutorial/
+
+## Build local preview
+```shell
+$ sphinx-build -M html docs/source/ build/
+```
+Then, open index.html in the build/html directory with a browser to preview.
