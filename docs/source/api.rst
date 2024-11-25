@@ -1,45 +1,45 @@
-API Reference
-=============
+API 参考
+========
 
 Web3
 ----
 
-The web3 class is an abstraction for all blockchain networks. You can use this class to obtain instances for interacting with different networks.
+Web3 类是所有区块链网络的抽象。您可以使用此类获取与不同网络交互的实例。
 
-Example
-~~~~~~~
+示例
+~~~~
 .. code-block:: gdscript
 
-   var web3 = Web3.new()
-   var op = web3.get_op_instance()
+    var web3 = Web3.new()
+    var op = web3.get_op_instance()
 
 
 
 Optimism
 --------
-Optimism is a class used for interacting with the OP network. It encapsulates the JSON-RPC interfaces and core protocols needed for interacting with the OP network.
+Optimism 类用于与 OP 网络交互。它封装了与 OP 网络交互所需的 JSON-RPC 接口和核心协议。
 
-Example
-~~~~~~~
+示例
+~~~~
 .. code-block:: gdscript
 
     const NODE_RPC_URL := "https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652"
     var op = Optimism.new()
 
-    # Set the node's RPC URL
+    # 设置节点的 RPC URL
     op.set_rpc_url(NODE_RPC_URL)
     var call_msg = {
         "from": "0x0000000000000000000000000000000000000000",
         "to": CONTRACT_ADDRESS,
         "input": "0x" + packed.hex_encode(),
     }
-    # Request a method of the smart contract.
-    # The process of constructing packed variable is not expanded here.
-    # Refer to the documentation at ABIHelper for this part of the construction process.
+    # 请求智能合约的方法。
+    # 构造 packed 变量的过程在此不展开。
+    # 请参阅 ABIHelper 文档中的构造过程部分。
     var rpc_resp = op.call_contract(call_msg, "")
 
-How to get Node's RPC URL
-~~~~~~~~~~~~~~~~~~~~~~~~~
+如何获取节点的 RPC URL
+~~~~~~~~~~~~~~~~~~~~~~~
 TODO
 
 RPC methods
@@ -56,18 +56,18 @@ RPC methods
 
 LegacyTx
 --------
-When interacting with a blockchain network, we usually need to send a transaction to it.
-Legacy is a basic transaction type defined in the ETH protocol.
-The LegacyTx class is a wrapper designed to support this transaction type.
-It includes the variables and methods needed to create a transaction.
+在与区块链网络交互时，我们通常需要向其发送交易。
+Legacy 是 ETH 协议中定义的基本交易类型。
+LegacyTx 类是一个支持此交易类型的包装器。
+它包括创建交易所需的变量和方法。
 
-Example
-~~~~~~~
-The following example demonstrates how to construct a LegacyTx object and set its various properties.
+示例
+~~~~
+以下示例演示了如何构造 LegacyTx 对象并设置其各种属性。
 
 .. code-block:: gdscript
 
-    # create a legacyTx
+    # 创建一个 legacyTx
     var legacyTx = LegacyTx.new()
     legacyTx.set_nonce(get_nonce)
     var gas_price = op.suggest_gas_price()
@@ -83,11 +83,11 @@ The following example demonstrates how to construct a LegacyTx object and set it
     legacyTx.set_chain_id(chain_id)
     legacyTx.set_to_address(CONTRACT_ADDRESS)
 
-Methods
-~~~~~~~
+方法
+~~~~
 1. set_chain_id
 ^^^^^^^^^^^^^^^
-Sets the chain ID for the transaction.
+设置交易的链 ID。
 
 .. code-block:: gdscript
 
@@ -95,17 +95,17 @@ Sets the chain ID for the transaction.
     # return: void
     legacyTx.set_chain_id(chain_id)
 
-Parameters:
+参数:
     chain_id: BigInt
 
-Returns:
+返回:
     void
 
 2. set_nonce
 ^^^^^^^^^^^^
-Sets the nonce for the transaction.
+设置交易的 nonce。
 
-todo: explain what is nonce.
+todo: 解释什么是 nonce。
 
 .. code-block:: gdscript
 
@@ -113,15 +113,15 @@ todo: explain what is nonce.
     # return: void
     legacyTx.set_nonce(nonce)
 
-Parameters:
+参数:
     nonce: int
 
-Returns:
+返回:
     void
 
 3. set_gas_price
 ^^^^^^^^^^^^^^^^
-Sets the gas price for the transaction.
+设置交易的 gas 价格。
 
 .. code-block:: gdscript
 
@@ -129,15 +129,15 @@ Sets the gas price for the transaction.
     # return: void
     legacyTx.set_gas_price(gas_price)
 
-Parameters:
+参数:
     gas_price: BigInt
 
-Returns:
+返回:
     void
 
 4. set_gas_limit
 ^^^^^^^^^^^^^^^^
-Sets the gas limit for the transaction.
+设置交易的 gas 限制。
 
 .. code-block:: gdscript
 
@@ -145,29 +145,29 @@ Sets the gas limit for the transaction.
     # return: void
     legacyTx.set_gas_limit(gas_limit)
 
-Parameters:
+参数:
     gas_limit: int
 
-Returns:
+返回:
     void
 
 5. set_to_address
 ^^^^^^^^^^^^^^^^^
-Sets the address for the transaction.
+设置交易的目标地址。
 
 .. code-block:: gdscript
 
     legacyTx.set_to_address("0xE85f5c8053C1fcdf2b7b517D0DC7C3cb36c81ABF")
 
-Parameters:
-    address: string; ETH address with 0x prefix
+参数:
+    address: string; 以 0x 开头的 ETH 地址
 
-Returns:
+返回:
     void
 
 6. set_value
 ^^^^^^^^^^^^
-Sets the value for the transaction.
+设置交易的值。
 
 .. code-block:: gdscript
 
@@ -175,15 +175,15 @@ Sets the value for the transaction.
     # return: void
     legacyTx.set_value(value)
 
-Parameters:
+参数:
     value: BigInt
 
-Returns:
+返回:
     void
 
 7. set_data
 ^^^^^^^^^^^
-Sets the data to be sent to the blockchain network, such as ABI-serialized data for calling a smart contract or custom data.
+设置要发送到区块链网络的数据，例如调用智能合约的 ABI 序列化数据或自定义数据。
 
 .. code-block:: gdscript
 
@@ -191,45 +191,45 @@ Sets the data to be sent to the blockchain network, such as ABI-serialized data 
     # return: void
     legacyTx.set_data(data)
 
-Parameters:
+参数:
     data: PackedByteArray
 
-Returns:
+返回:
     void
 
 8. rlp_hash
 ^^^^^^^^^^^
-Can obtain the keccak256 hash value of LegacyTx after RLP encoding.
+获取 LegacyTx 经过 RLP 编码后的 keccak256 哈希值。
 
 .. code-block:: gdscript
 
     # return: PackedByteArray
     var hash = legacyTx.rlp_hash()
 
-Parameters:
-    None
+参数:
+    无
 
-Returns:
+返回:
     PackedByteArray
 
 9. hash
 ^^^^^^^
-Call this function to get the hash of the transaction. It nceessary to call after sign the transaction.
+调用此函数以获取交易的哈希值。需要在签名交易后调用。
 
 .. code-block:: gdscript
 
     # return: PackedByteArray
     var hash = legacyTx.hash()
 
-Parameters:
-    None
+参数:
+    无
 
-Returns:
+返回:
     PackedByteArray
 
 10. sign_tx
 ^^^^^^^^^^^
-Sign the LegacyTx using a signer constructed from a private key.
+使用从私钥构造的签名者对 LegacyTx 进行签名。
 
 .. code-block:: gdscript
 
@@ -237,15 +237,15 @@ Sign the LegacyTx using a signer constructed from a private key.
     # return: void
     legacyTx.sign_tx(signer)
 
-Parameters:
+参数:
     signer: Ref<Secp256k1Wrapper>
 
-Returns:
-    int: 0 if success, -1 if failed
+返回:
+    int: 成功返回 0，失败返回 -1
 
 11. sign_tx_by_account
 ^^^^^^^^^^^^^^^^^^^^^^
-Sign the LegacyTx by use EthAccount.
+使用 EthAccount 对 LegacyTx 进行签名。
 
 .. code-block:: gdscript
 
@@ -253,38 +253,37 @@ Sign the LegacyTx by use EthAccount.
     # return: void
     legacyTx.sign_tx_by_account(account)
 
-Parameters:
+参数:
     account: Ref<EthAccount>
 
-Returns:
-    int: 0 if success, -1 if failed
-
+返回:
+    int: 成功返回 0，失败返回 -1
 
 12. signedtx_marshal_binary
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Marshal the signed transaction into binary data and encode to hex string.
+将签名后的交易编组为二进制数据并编码为十六进制字符串。
 
 .. code-block:: gdscript
 
     # return: PackedByteArray
     var res = legacyTx.signedtx_marshal_binary()
 
-Parameters:
-    None
+参数:
+    无
 
-Returns:
+返回:
     String
 
 
 BigInt
 ------
-The BigInt class implements some basic operations related to large numbers, utilizing the GMP library to fulfill its requirements.
+BigInt 类实现了一些与大数相关的基本操作，利用 GMP 库来满足其需求。
 
-Methods
+方法
 ~~~~~~~
 1. add
 ^^^^^^
-Add two BigInt objects.
+将两个 BigInt 对象相加。
 
 .. code-block:: gdscript
 
@@ -294,7 +293,7 @@ Add two BigInt objects.
 
 2. sub
 ^^^^^^
-Subtract two BigInt objects.
+将两个 BigInt 对象相减。
 
 .. code-block:: gdscript
 
@@ -304,7 +303,7 @@ Subtract two BigInt objects.
 
 3. mul
 ^^^^^^
-Multiply two BigInt objects.
+将两个 BigInt 对象相乘。
 
 .. code-block:: gdscript
 
@@ -314,7 +313,7 @@ Multiply two BigInt objects.
 
 4. div
 ^^^^^^
-Divide two BigInt objects.
+将两个 BigInt 对象相除。
 
 .. code-block:: gdscript
 
@@ -324,7 +323,7 @@ Divide two BigInt objects.
 
 5. mod
 ^^^^^^
-Get the remainder of the division of two BigInt objects.
+获取两个 BigInt 对象相除的余数。
 
 .. code-block:: gdscript
 
@@ -334,7 +333,7 @@ Get the remainder of the division of two BigInt objects.
 
 6. abs
 ^^^^^^
-Get the absolute value of a BigInt object.
+获取 BigInt 对象的绝对值。
 
 .. code-block:: gdscript
 
@@ -343,7 +342,7 @@ Get the absolute value of a BigInt object.
 
 7. cmp
 ^^^^^^
-Compare two BigInt objects.
+比较两个 BigInt 对象。
 
 .. code-block:: gdscript
 
@@ -351,24 +350,24 @@ Compare two BigInt objects.
     # return: int
     var res = bigInt.cmp(other)
 
-Returns:
-    int: 1 if bigInt > other, 0 if bigInt == other, -1 if bigInt < other
+返回:
+    int: 如果 bigInt > other 返回 1，如果 bigInt == other 返回 0，如果 bigInt < other 返回 -1
 
 8. sgn
 ^^^^^^
-Returns the sign of m_number as an integer:
+返回 m_number 的符号作为整数：
 
 .. code-block:: gdscript
 
     # return: int
     var res = bigInt.sgn()
 
-Returns:
-    int: 1 if bigInt > 0, 0 if bigInt == 0, -1 if bigInt < 0
+返回:
+    int: 如果 bigInt > 0 返回 1，如果 bigInt == 0 返回 0，如果 bigInt < 0 返回 -1
 
 8. is_zero
 ^^^^^^^^^^
-Check if the BigInt object is zero.
+检查 BigInt 对象是否为零。
 
 .. code-block:: gdscript
 
@@ -377,7 +376,7 @@ Check if the BigInt object is zero.
 
 9. from_string
 ^^^^^^^^^^^^^^
-Create a BigInt object from a string.
+从字符串创建一个 BigInt 对象。
 
 .. code-block:: gdscript
 
@@ -387,7 +386,7 @@ Create a BigInt object from a string.
 
 10. from_hex
 ^^^^^^^^^^^^
-Create a BigInt object from a hex string.
+从十六进制字符串创建一个 BigInt 对象。
 
 .. code-block:: gdscript
 
@@ -397,7 +396,7 @@ Create a BigInt object from a hex string.
 
 11. get_string
 ^^^^^^^^^^^^^^
-Get the string representation of the BigInt object.
+获取 BigInt 对象的字符串表示。
 
 .. code-block:: gdscript
 
@@ -406,7 +405,7 @@ Get the string representation of the BigInt object.
 
 12. to_hex
 ^^^^^^^^^^
-Get the hex string with 0x prefix representation of the BigInt object.
+获取 BigInt 对象的带有 0x 前缀的十六进制字符串表示。
 
 .. code-block:: gdscript
 
@@ -422,19 +421,19 @@ JsonrpcHelper
 
 ABIHelper
 ---------
-The Ethereum ABI (Application Binary Interface) is a standardized interface between Ethereum smart contracts and external applications. The ABI defines how to encode and decode the functions and events of a smart contract, allowing external applications to interact with the smart contract.
+Ethereum ABI（应用二进制接口）是以太坊智能合约与外部应用程序之间的标准化接口。ABI 定义了如何对智能合约的函数和事件进行编码和解码，从而允许外部应用程序与智能合约进行交互。
 
-For more details on ABI, you can refer to `here <https://docs.soliditylang.org/en/latest/abi-spec.html>`_.
+有关 ABI 的更多详细信息，您可以参考 `这里 <https://docs.soliditylang.org/en/latest/abi-spec.html>`_。
 
-The ABIHelper class is a utility class for handling ABI encoding and decoding. It provides user-friendly methods for processing ABI encoding and decoding.
+ABIHelper 类是一个用于处理 ABI 编码和解码的实用类。它提供了用户友好的方法来处理 ABI 编码和解码。
 
-Unit test code file: abihelper_unit_test.gd
+单元测试代码文件：abihelper_unit_test.gd
 
-Methods
+方法
 ~~~~~~~
 1. unmarshal_from_json
 ^^^^^^^^^^^^^^^^^^^^^^
-Parse the ABI JSON string of the smart contract into the ABIHelper object. This sets a series of properties required for ABI encoding and decoding, including function lists, parameter types, etc., for the ABIHelper object.
+解析智能合约的 ABI JSON 字符串到 ABIHelper 对象中。这为 ABIHelper 对象设置了一系列所需的属性，包括函数列表、参数类型等，以便进行 ABI 编码和解码。
 
 .. code-block:: gdscript
 
@@ -446,21 +445,22 @@ Parse the ABI JSON string of the smart contract into the ABIHelper object. This 
     var h = ABIHelper.new()
     var res = h.unmarshal_from_json(CONTRACT_ABI)
 
-Parameters:
-    json: string; ABI JSON string. TODO: how to get abi string.
+参数:
+    json: string; ABI JSON 字符串。TODO: 如何获取 ABI 字符串。
 
-Returns:
-    bool: true if success, false if failed
+返回:
+    bool: 成功返回 true，失败返回 false
+
 
 2. pack
 ^^^^^^^
-Pack the parameters into a byte array according to the ABI encoding rules.
+根据 ABI 编码规则将参数打包成字节数组。
 
-Here we need to use two examples to illustrate the usage of the pack function. A simple example is used to explain the basic usage, and a complex example is used to explain how to handle complex data structures.
+这里我们需要用两个例子来说明 pack 函数的用法。一个简单的例子用于解释基本用法，另一个复杂的例子用于解释如何处理复杂的数据结构。
 
-**Example 1: ERC20 transfer**
+**示例 1: ERC20 转账**
 
-For an ERC20 contract, the definition of its transfer function is as follows:
+对于一个 ERC20 合约，其 transfer 函数的定义如下：
 
 .. code-block:: solidity
 
@@ -469,7 +469,7 @@ For an ERC20 contract, the definition of its transfer function is as follows:
         return true;
     }
 
-You can see that the transfer function accepts two parameters: a recipient of type address and an amount of type uint256. Its interface ABI definition is similar to:
+可以看到，transfer 函数接受两个参数：一个类型为 address 的 recipient 和一个类型为 uint256 的 amount。其接口 ABI 定义类似于：
 
 .. code-block:: json
 
@@ -499,51 +499,51 @@ You can see that the transfer function accepts two parameters: a recipient of ty
         }
     ]
 
-So how do we call this function? The following code demonstrates the process of calling this function using GDScript.
+那么我们如何调用这个函数呢？以下代码演示了使用 GDScript 调用此函数的过程。
 
 .. code-block:: gdscript
 
-    const CONTRACT_ABI := ... # ABI definition of the ERC20 contract
+    const CONTRACT_ABI := ... # ERC20 合约的 ABI 定义
     var h = ABIHelper.new()
     var res = h.unmarshal_from_json(CONTRACT_ABI)
 
     var params = [
-        # receipient
+        # 接收者
         "0xeB98753449AD50d30561a66CA48BF69EEcaD4bC3",
-        # amount
+        # 数量
         "123456"
     ]
 
     var packed = h.pack("transfer", params)
 
-Parameters:
-    name: string; method name
+参数:
+    name: string; 方法名称
 
-    params: Array; parameters for calling the method
+    params: Array; 调用方法的参数
 
-Returns:
-    PackedByteArray: packed data
+返回:
+    PackedByteArray: 打包后的数据
 
-Let's explain this code in detail. First, we create an ABIHelper object `h`, and then call the `unmarshal_from_json` function, passing in the ABI definition of the ERC20 contract. This allows the `h` object to understand the ABI definition of the ERC20 contract.
+让我们详细解释这段代码。首先，我们创建一个 ABIHelper 对象 `h`，然后调用 `unmarshal_from_json` 函数，传入 ERC20 合约的 ABI 定义。这使得 `h` 对象能够理解 ERC20 合约的 ABI 定义。
 
-Next, we define a `params` array containing two elements. The first element is the recipient's address, and the second element is the amount value. These correspond to the two parameters of the `transfer` function.
+接下来，我们定义一个包含两个元素的 `params` 数组。第一个元素是接收者的地址，第二个元素是数量值。这些对应于 `transfer` 函数的两个参数。
 
-You can understand it as: `params[0] => recipient`, `params[1] => amount`.
+你可以理解为：`params[0] => recipient`，`params[1] => amount`。
 
-Therefore, you can easily deduce that the order of elements in the `params` array must match the order of parameters in the contract function. This is very important; otherwise, you will get incorrect results.
+因此，你可以很容易地推断出 `params` 数组中元素的顺序必须与合约函数中参数的顺序一致。这非常重要，否则你会得到错误的结果。
 
-Finally, we call the `pack` function, passing in the function name `transfer` and the parameters array, to get the packed result.
+最后，我们调用 `pack` 函数，传入函数名称 `transfer` 和参数数组，以获得打包结果。
 
-We will use the packed result as the data for the `LegacyTx` and send it to the blockchain to call the `transfer` function of the ERC20 contract.
+我们将使用打包结果作为 `LegacyTx` 的数据，并将其发送到区块链以调用 ERC20 合约的 `transfer` 函数。
 
 
-**Example 2: Complex Structure Call Example**
+**示例 2: 复杂结构调用示例**
 
-For some complex business scenarios, people often define custom data structures and pass them when calling functions, such as arrays, structs, nested structs, etc.
+对于一些复杂的业务场景，人们通常定义自定义数据结构并在调用函数时传递它们，例如数组、结构体、嵌套结构体等。
 
-Here, we use a complex nested struct as an example to illustrate how to use the `pack` function for complex data structures. Through this example, you will fully understand the behavior of the `pack` function.
+这里，我们使用一个复杂的嵌套结构体作为示例，说明如何使用 `pack` 函数处理复杂的数据结构。通过这个示例，你将完全理解 `pack` 函数的行为。
 
-Now we have a contract that defines many complex data structures, with structs nested within other structs. The contract is defined as follows:
+现在我们有一个定义了许多复杂数据结构的合约，其中结构体嵌套在其他结构体中。合约定义如下：
 
 .. code-block:: solidity
 
@@ -615,11 +615,11 @@ Now we have a contract that defines many complex data structures, with structs n
     }
 
 .. note::
-    This Test contract will also be used when introducing the unpack function.
+    这个 Test 合约也将在介绍 unpack 函数时使用。
 
-We will use the f() function as an example to illustrate how to use the pack function.
+我们将使用 f() 函数作为示例来说明如何使用 pack 函数。
 
-First, we need to obtain the ABI definition of the contract. For the above contract code, its ABI definition is as follows:
+首先，我们需要获取合约的 ABI 定义。对于上述合约代码，其 ABI 定义如下：
 
 .. code-block:: gdscript
 
@@ -627,7 +627,7 @@ First, we need to obtain the ABI definition of the contract. For the above contr
     [{"inputs":[{"components":[{"internalType":"uint32","name":"a","type":"uint32"},{"internalType":"uint256[]","name":"b","type":"uint256[]"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T[]","name":"c","type":"tuple[]"},{"internalType":"int256[3]","name":"d","type":"int256[3]"}],"internalType":"struct Test.S","name":"s","type":"tuple"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T","name":"t","type":"tuple"},{"internalType":"uint256","name":"u","type":"uint256"},{"internalType":"address","name":"user","type":"address"},{"internalType":"bytes10","name":"b10","type":"bytes10"}],"name":"f","outputs":[],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"g","outputs":[{"components":[{"internalType":"uint32","name":"a","type":"uint32"},{"internalType":"uint256[]","name":"b","type":"uint256[]"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T[]","name":"c","type":"tuple[]"},{"internalType":"int256[3]","name":"d","type":"int256[3]"}],"internalType":"struct Test.S","name":"","type":"tuple"},{"components":[{"components":[{"internalType":"string[]","name":"t","type":"string[]"}],"internalType":"struct Test.C[]","name":"x","type":"tuple[]"},{"internalType":"bytes10","name":"y","type":"bytes10"}],"internalType":"struct Test.T","name":"","type":"tuple"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"h","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"nonpayable","type":"function"}]
     """
 
-Now, let's explain in detail how to pack the f() function of this contract. The following is an example code in GDScript that demonstrates how to encode the f() function call using the pack function:
+现在，让我们详细解释如何打包此合约的 f() 函数。以下是一个在 GDScript 中的示例代码，演示了如何使用 pack 函数对 f() 函数调用进行编码：
 
 .. code-block:: gdscript
 
@@ -670,7 +670,7 @@ Now, let's explain in detail how to pack the f() function of this contract. The 
     ]
     var packed = h.pack("f", params)
 
-We can see that the `f()` function accepts 5 parameters, which are:
+我们可以看到 `f()` 函数接受 5 个参数，它们是：
 
     * s: struct S
     * t: struct T
@@ -678,7 +678,7 @@ We can see that the `f()` function accepts 5 parameters, which are:
     * user: address
     * b10: bytes10
 
-The struct S and struct T are composite structures containing multiple fields, with nested structures within them. We need to fill these fields into the params array in the order defined by the contract.
+结构体 S 和结构体 T 是包含多个字段的复合结构体，其中嵌套了其他结构体。我们需要按照合约定义的顺序将这些字段填充到 params 数组中。
 
     * params[0] => s
     * params[1] => t
@@ -686,30 +686,29 @@ The struct S and struct T are composite structures containing multiple fields, w
     * params[3] => user
     * params[4] => b10
 
-In the above code, comments are used to explain the value of each field. This should help you clearly understand how to fill the params array.
+在上述代码中，注释用于解释每个字段的值。这应该有助于您清楚地了解如何填充 params 数组。
 
-Additionally, this example contract includes common data types and some special data, such as large numbers, mixed-case strings, and strings longer than 32 bytes. This should help you better understand how to use the pack function.
+此外，这个示例合约包含常见的数据类型和一些特殊数据，例如大数、混合大小写字符串和超过 32 字节的字符串。这应该有助于您更好地理解如何使用 pack 函数。
 
 .. note::
 
-    Now, you should be able to infer the following logical relationship:
+    现在，您应该能够推断出以下逻辑关系：
 
-    For fields within a struct, we use an array to represent them, where each element in the array corresponds to a field in the struct.
-    The order of the elements in the array must match the order of the fields defined in the struct; otherwise, it will result in incorrect outcomes.
-
+    对于结构体中的字段，我们使用数组来表示它们，其中数组中的每个元素对应结构体中的一个字段。
+    数组中元素的顺序必须与结构体中定义的字段顺序一致，否则会导致错误的结果。
 
 3. unpack
 ^^^^^^^^^
-First, it is important to note that we do not provide a direct `unpack` function. Instead, we offer the following two methods to achieve the unpack functionality:
+首先，需要注意的是我们并不直接提供 `unpack` 函数。相反，我们提供以下两种方法来实现解包功能：
 
-    * unpack_into_dictionary: Decodes the ABI-encoded data into a dictionary object.
-    * unpack_into_array: Decodes the ABI-encoded data into an array.
+    * unpack_into_dictionary: 将 ABI 编码的数据解码为字典对象。
+    * unpack_into_array: 将 ABI 编码的数据解码为数组。
 
-Both methods decode the ABI-encoded data into specific data structures based on the ABI definition, but the resulting data structures provided to the developer for manipulation are different.
+这两种方法根据 ABI 定义将 ABI 编码的数据解码为特定的数据结构，但提供给开发者操作的结果数据结构不同。
 
-We will continue using the smart contract introduced in the `pack` function section. However, this time we will use the `g()` function for illustration.
+我们将继续使用 `pack` 函数部分介绍的智能合约，但这次我们将使用 `g()` 函数进行说明。
 
-The `g()` function returns 4 parameters, which are:
+`g()` 函数返回 4 个参数，分别是：
 
     * 0: struct S
     * 1: struct T
@@ -718,13 +717,13 @@ The `g()` function returns 4 parameters, which are:
 
 .. note::
 
-    These parameters are defined as anonymous in the ABI definition, where the name is empty. Therefore, we use numerical indices to represent these parameters.
+    这些参数在 ABI 定义中被定义为匿名的，即名称为空。因此，我们使用数字索引来表示这些参数。
 
-Additionally, the return value of the `g()` function is designed to include complex data and data structures, such as large numbers, structs, arrays, etc. This helps you better understand how to use the unpack function.
+此外，`g()` 函数的返回值设计为包含复杂数据和数据结构，如大数、结构体、数组等。这有助于您更好地理解如何使用解包函数。
 
 .. note::
 
-    For large numbers, we uniformly use strings for wrapping instead of directly using the BigInt class. This approach avoids some unnecessary issues. If you need to perform operations on these numbers, you can use the BigInt class for processing.
+    对于大数，我们统一使用字符串进行包装，而不是直接使用 BigInt 类。这种方法避免了一些不必要的问题。如果您需要对这些数字进行操作，可以使用 BigInt 类进行处理。
 
 **Example 1: unpack_into_dictionary**
 
@@ -757,25 +756,23 @@ Additionally, the return value of the `g()` function is designed to include comp
     # example correct output:
     # [[1, ["2", "3"], [[[[["STRING_TEST", "string_test"]]], [4, 0, 0, 0, 0, 0, 0, 0, 0, 0]]], ["57896044618658097711785492504343953926634992332820282019728792003956564819967", "57896044618658097711785492504343953926634992332820282019728792003956564819966", "-57896044618658097711785492504343953926634992332820282019728792003956564819968"]], [[[["STRING_test", "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"]]], [8, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "8eee12bd33ec72a277ffa9ddf246759878589d3b", "9"]
 
-The above two examples correspond to using `unpack_into_dictionary` and `unpack_into_array` to decode ABI-encoded data. Their usage is as follows:
+上面的两个示例对应于使用 `unpack_into_dictionary` 和 `unpack_into_array` 解码 ABI 编码的数据。它们的用法如下：
 
-1. Initialize an `ABIHelper` object.
-2. Call the `unmarshal_from_json` function, passing in the ABI definition of the contract.
-3. Define `callret`. Here, a test return value after calling the `g()` function is directly provided. Typically, this value is obtained by calling a function of the smart contract, usually by calling the `call_contract()` method.
-4. Define a `result` variable to store the decoded data. Depending on the chosen function, `result` needs to be either a dictionary object or an array object.
-5. Call the `unpack_into_dictionary` or `unpack_into_array` function to decode `callret` into `result`.
+1. 初始化一个 `ABIHelper` 对象。
+2. 调用 `unmarshal_from_json` 函数，传入合约的 ABI 定义。
+3. 定义 `callret`。这里直接提供了调用 `g()` 函数后的测试返回值。通常，这个值是通过调用智能合约的函数获得的，通常通过调用 `call_contract()` 方法。
+4. 定义一个 `result` 变量来存储解码后的数据。根据选择的函数，`result` 需要是字典对象或数组对象。
+5. 调用 `unpack_into_dictionary` 或 `unpack_into_array` 函数，将 `callret` 解码到 `result` 中。
 
-
-For `unpack_into_dictionary`, the decoded value is a dictionary where the keys are the indices of the parameters or the variable names of the struct members, and the values are the parameter values.
+对于 `unpack_into_dictionary`，解码后的值是一个字典，其中键是参数的索引或结构体成员的变量名，值是参数值。
 
 .. note::
 
-    Solidity allows naming the return values of functions. If the return values are named, the keys in the returned dictionary will be those names. If they are not named, the keys will be the indices of the parameters.
+    Solidity 允许为函数的返回值命名。如果返回值被命名，返回的字典中的键将是这些名称。如果没有命名，键将是参数的索引。
 
     function getDetails() public pure returns (uint256 id, string memory name, bool isActive);
 
-For `unpack_into_array`, the decoded value is an array where each element corresponds to a parameter value.
-
+对于 `unpack_into_array`，解码后的值是一个数组，其中每个元素对应一个参数值。
 
 
 EthAccountManager

@@ -1,24 +1,24 @@
-Compiling From Source
-=====================
+从源码编译
+==========
 
-1. Setup Godot Engine compilation environment
----------------------------------------------
+1. 设置 Godot 引擎编译环境
+---------------------------
 
-`Building from Source <https://docs.godotengine.org/en/stable/contributing/development/compiling/index.html>`_
+`从源码构建 <https://docs.godotengine.org/en/stable/contributing/development/compiling/index.html>`_
 
-You can refer to this tutorial to set up your own Godot Engine compilation environment. Trust me, it's unbelievably simple! Definitely worth a try!
+你可以参考这个教程来设置你自己的 Godot 引擎编译环境。相信我，这非常简单！绝对值得一试！
 
-2. Clone our project
---------------------
+2. 克隆我们的项目
+-------------------
 
 .. code-block:: shell
 
    git clone https://github.com/qingfengzxr/gdscript-web3.git
 
-3. Copy web3 module
--------------------
+3. 复制 web3 模块
+------------------
 
-Copy web3 directory into Godot Engine project's modules directory.
+将 web3 目录复制到 Godot 引擎项目的 modules 目录中。
 
 .. code-block:: shell
 
@@ -26,10 +26,10 @@ Copy web3 directory into Godot Engine project's modules directory.
 
 .. note::
 
-   Don't forget to replace your own path
+   不要忘记替换成你自己的路径
 
-4. Install gmp library
-----------------------
+4. 安装 gmp 库
+--------------
 
 ubuntu:
 
@@ -37,10 +37,10 @@ ubuntu:
 
    sudo apt install libgmp-dev
 
-Also, it can be installed by source code. Reference: https://gmplib.org/
+也可以通过源码安装。参考：https://gmplib.org/
 
-5. Compile Godot Engine
------------------------
+5. 编译 Godot 引擎
+------------------
 
 Linux:
 
@@ -58,7 +58,8 @@ MacOS:
 .. autosummary::
    :toctree: generated
 
-Windows: 
+Windows:
 
 .. note::
    TODO
+
