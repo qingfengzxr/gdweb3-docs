@@ -177,7 +177,7 @@ Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVers
 
 注意：编译后，在图示的3，4处，可以复制后续编写gdscript调用代码所需要的ABI, Bytecode。
 
-接下来，我们点击 **Deploy & Run Transactions**，部署合约。部署合约时，有一些选项，其中 **Environment** 选项，可以选择部署环境。选择 `Remix VM(Cancun)` 会将合约部署在一个remix构建的本地环境上。
+接下来，我们点击 **Deploy & Run Transactions** 来进行合约部署。部署合约时，有一些选项，其中 **Environment** 选项，可以选择部署环境。选择 `Remix VM(Cancun)` 会将合约部署在一个remix构建的本地环境上。
 这里我们选择 **Injected Provider - Metamask** 选项，这样我们可以使用metamask来部署合约。合约最终会被部署到当前metamask配置的网络上。
 
 .. image:: ./_static/remix03.jpg
