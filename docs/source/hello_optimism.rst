@@ -111,6 +111,7 @@ Hello Optimism
 正如前面所说，我们可以将区块链网络理解为一个服务器。我们的智能合约就是这个服务器上的一个程序，我们可以通过调用这个程序的接口来与这个服务器进行交互。因此，在游戏开发中，我们其实也需要开发两个部分：
 
 前端：我们使用 **Godot** 引擎来支撑游戏交互和游戏逻辑的开发。
+
 智能合约（服务器程序）：我们使用 **Solidity** 语言来编写智能合约，并将其部署到区块链网络上。
 
 2.1. 创建一个新的Godot项目
@@ -148,19 +149,23 @@ TODO: @shanghua
    }
 
 其中：
+
 * `callHello` 接口是一个只读接口，不会改变合约的状态，只是返回一个字符串。
+
 * `sendHello` 接口是一个写接口，会改变合约的状态，将调用者的地址和传入的用户名绑定。
+
 * `whoami` 接口是一个只读接口，会返回调用者的用户名。
 
 
 2.3. 编译&部署 Hello Optimism 智能合约
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-在部署合约的工作上，本教程选用Remix来完成，因为它是一个非常好用的在线IDE，可以帮助大家快速上手。当然，大家也可以选择其他的开发框架，比如Truffle，Hardhat等，它们往往有更强大的能力，但需要花点时间学习，大家可以自行钻研。
+在部署合约的工作上，本教程选用Remix来完成，因为它是一个非常好用的在线IDE，可以帮助大家快速上手。
+当然，大家也可以选择其他的开发框架，比如Truffle，Hardhat等，它们往往有更强大的能力，但需要花点时间学习，大家可以自行钻研。在本教程中，暂时不涉及这部分内容。
 
-Remix地址：`https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.28+commit.7893614a.js`
+Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.28+commit.7893614a.js
 
-打开浏览器后，我们在左侧的文件夹中新建一个文件，命名为 **HelloWorld.sol**，然后将上面的合约代码复制到文件中。
+打开Remix后，我们在左侧的文件夹中新建一个文件，命名为 **HelloWorld.sol** ，然后将上面的合约代码复制到文件中。
 
 .. image:: ./_static/remix00.png
    :alt:
@@ -192,12 +197,16 @@ Remix地址：`https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVe
 接下来，我们使用GDScript来编写调用我们部署的合约的代码。需要用到集成了GDWeb3模块编译出的Godot引擎可执行程序。
 
 在开始部署之前，我们需要准备以下四个东西：
+
 1. **合约地址**：在前面部署合约时，我们得到了合约地址，这个地址是合约在区块链网络上的唯一标识。
+
 2. **合约ABI**：在前面编译合约时，有提到如何获取ABI，这个ABI是一个json格式的数据，描述了合约的接口。
+
 3. **节点RPC请求地址**：在使用GDWeb3模块时，我们需要一个节点RPC请求地址，这个地址是一个可以访问到区块链网络的节点地址。大家可以在QuickNode上快速创建一个Endpoints，然后获取这个地址。
 教程中用到的RPC URL是：https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652
 
-如果你嫌麻烦，也可以直接用教程中的这个地址，不过不保证长期可用。
+也可以直接用教程中的这个地址，不过不保证长期可用。
+
 4. **私钥**: 私钥可以通过metamask导出当前账户的私钥来获取。切记不要向其他人泄露你的私钥，这是非常危险的行为，获取了私钥就获取了账户的控制权。
 
 
