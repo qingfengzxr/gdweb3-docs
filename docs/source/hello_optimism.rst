@@ -249,7 +249,7 @@ Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVers
         "to": CONTRACT_ADDRESS,
         "data": packed,
     }
-    var signed_tx_data = op.signed_transaction(transaction)
+    var signed_tx_data = op.sign_transaction(transaction)
     var rpc_result = op.send_transaction(signed_tx_data)
     print("rpc_result: ", rpc_result)
     # example rpc_result:  { "success": true, "errmsg": "", "txhash": "0xe3b18398db6371a47c1795f4a09ab412ddeceaa29ffda3d5dbae514a99e6caed" }
