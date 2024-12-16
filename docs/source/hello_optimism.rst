@@ -1,59 +1,59 @@
 Hello Optimism
 ==============
 
-对于一个从来没有进行过区块链开发的开发者来说，刚刚接触区块链开发时，可能会觉得是一个复杂的事情。它和学习一门语言不太一样，因为它涉及到了很多概念，比如区块链网络、智能合约、钱包、交易等等。
-但是，我们相信，只要您有一颗学习的心，您就可以很快上手。我们为您准备了一个简单的教程，让您可以快速了解区块链的一些基础知识，以及如何使用 GDWeb3 与区块链网络进行交互。希望这个教程能够帮助您快速入门。
-我们把这个教程称为 **Hello Optimism** （因为我们使用Optimism网络），就像经典的 **Hello World** 一样。
+For developers who have never done blockchain development before, getting started might seem complex. It's different from learning a programming language because it involves many concepts like blockchain networks, smart contracts, wallets, transactions, and more.
+However, we believe that with a learning mindset, you can quickly get started. We've prepared a simple tutorial to help you understand the basics of blockchain and how to interact with blockchain networks using GDWeb3. We hope this tutorial helps you get started quickly.
+We call this tutorial **Hello Optimism** (because we use the Optimism network), just like the classic **Hello World**.
 
-1. 准备工作
+1. Preparation
 ------------
 
-区块链网络是一个由许多P2P节点构成的去中心化网络，每个节点都可以独立运行。这些节点可以通过约定的协议进行通信并达成共识，共同维护一个称为区块链的数据。
-如果你不太理解这些技术，也没有关系。将它理解为网络游戏开发中的服务器部分即可。只不过这个服务器是一个完全公开的服务器，上面的内容所有人共同维护，全部可见。
-在使用时我们提交一定的费用（Gas），为我们在这个服务器上的每一个操作行为买单。
+A blockchain network is a decentralized network consisting of many P2P nodes, each running independently. These nodes communicate through agreed-upon protocols to reach consensus and maintain data called the blockchain.
+If you don't fully understand these technologies, that's okay. You can think of it as the server part in network game development. The difference is that this server is completely public, its contents are maintained collectively, and everything is visible to everyone.
+When using it, we pay fees (Gas) for each operation we perform on this server.
 
-因此，可以看到，我们需要有两个关键的东西，才能进入开发：
+Therefore, we need two key things to start development:
 
-1) 用于测试的区块链网络
+1) A blockchain network for testing
 
-2) 用于测试的测试代币
+2) Test tokens
 
-下面我们来准备这两个东西。
+Let's prepare these two things.
 
-1.1. 区块链网络
+1.1. Blockchain Network
 ~~~~~~~~~~~~~~~
 
-在这个教程中，我们使用 **Optimism** 测试网络。Optimism 是一个 ETH Layer 2 解决方案，它的性能非常出色，并且拥有强大的生态系统。
-您可以在 `Optimism官方文档 <https://www.optimism.io/>`_ 了解更多关于 Optimism 的信息。
+In this tutorial, we use the **Optimism** test network. Optimism is an ETH Layer 2 solution with excellent performance and a robust ecosystem.
+You can learn more about Optimism in the `Optimism official documentation <https://www.optimism.io/>`_.
 
-准备 **Optimism** 测试网络的方式通常有三种：
+There are typically three ways to prepare the **Optimism** test network:
 
-1) 使用官方提供的公共测试网络
+1) Use the official public test network
 
-2) 搭建本地节点，构建本地测试网络
+2) Set up a local node and build a local test network
 
-3) 使用第三方服务商提供的测试网络, 如: QuickNode, Infura, Alchemy 等
+3) Use test networks provided by third-party service providers like QuickNode, Infura, Alchemy, etc.
 
-这里我们选用第一种方式，使用官方提供的公共测试网络。
+Here we'll use the first method - the official public test network.
 
-为此，您需要一个 **MetaMask** 钱包，并且切换到 **Optimism** 测试网络（注意：metamask并不是必须的，但是它拥有一个友好的用户界面，这有助于大家快速入门和理解各种行为，因此我们使用它）。我们使用浏览器插件版本的 **MetaMask**，教程中浏览器为Google Chrome。
+For this, you'll need a **MetaMask** wallet and switch to the **Optimism** test network (note: while MetaMask isn't mandatory, it has a user-friendly interface that helps with quick learning and understanding various operations, which is why we're using it). We'll use the browser plugin version of **MetaMask**, and this tutorial uses Google Chrome.
 
-关于metamask的更多信息，请参考: https://metamask.io/faqs/
+For more information about MetaMask, please refer to: https://metamask.io/faqs/
 
-1.1.1. 安装 MetaMask
+1.1.1. Installing MetaMask
 ~~~~~~~~~~~~~~~~~~~~~
 
-进入谷歌浏览器的应用商店，搜索 **MetaMask**，点击 **Add to Chrome** 安装。注意选择带蓝标的插件，防止被坑。
+Go to the Google Chrome Web Store, search for **MetaMask**, and click **Add to Chrome** to install. Make sure to select the plugin with the blue verification badge to avoid scams.
 
 .. image:: ./_static/metamask00.png
    :alt: MetaMask Installation
 
-1.1.2. 创建钱包
+1.1.2. Creating a Wallet
 ~~~~~~~~~~~~~~~~
 
-安装完成后，请按照 MetaMask 的指引流程创建一个新的钱包。在 `Secure your wallet` 步骤时，请务必备份好您的助记词（12 个单词），这是找回钱包的唯一方式。
-在生产环境中，这一点尤为重要。每个区块链用户都必须意识到，区块链网络是去中心化的，没有中心化的管理机构，一旦丢失助记词，您的资产将无法找回。
-开发者更应有此意识，并以保护用户资产安全为首要原则。
+After installation, follow MetaMask's setup process to create a new wallet. During the `Secure your wallet` step, make sure to back up your seed phrase (12 words) - this is the only way to recover your wallet.
+This is particularly important in production environments. Every blockchain user must understand that blockchain networks are decentralized with no central management authority - if you lose your seed phrase, your assets cannot be recovered.
+Developers should be especially aware of this and prioritize protecting user asset security.
 
 .. image:: ./_static/metamask01.png
    :alt: Secure your wallet
@@ -64,66 +64,65 @@ Hello Optimism
 .. image:: ./_static/metamask03.png
    :alt:
 
-1.1.3 切换为Optimism测试网络
+1.1.3 Switching to Optimism Test Network
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-切换网络的方式有两种：
+There are two ways to switch networks:
 
-1）在metamask中，点击 **Ethereum Mainnet**，选择 **Add a custom network**，填入 **Optimism** 测试网络的信息。
+1) In MetaMask, click **Ethereum Mainnet**, select **Add a custom network**, and enter the **Optimism** test network information.
 
-2）利用OP浏览器的网站的工具，一键添加。
+2) Use the one-click add tool on the OP browser website.
 
-我们选择第二种方式，因为这种方式更加简单。
+We'll choose the second method as it's simpler.
 
-进入网站：`OP Sepolia 浏览器 <https://sepolia-optimism.etherscan.io/>`_，下拉到页面底部，点击 **Add Optimism Sepolia Network** 即可添加。
+Visit the `OP Sepolia Explorer <https://sepolia-optimism.etherscan.io/>`_, scroll to the bottom of the page, and click **Add Optimism Sepolia Network**.
 
 .. image:: ./_static/optestnet00.png
    :alt:
 
-在添加过程中，会唤醒 **MetaMask** 插件，进行添加交互。
+During the process, the **MetaMask** plugin will be activated for the addition interaction.
 
 .. image:: ./_static/optestnet01.jpg
    :alt:
 
-添加完成后，就可以在metamask中看到 **Op Sepolia** 的测试网络了。
+After adding, you'll see the **Op Sepolia** test network in MetaMask.
 
 .. image:: ./_static/optestnet02.jpg
    :alt:
 
-1.2 获取测试代币
+1.2 Getting Test Tokens
 ~~~~~~~~~~~~~~~~
 
-在区块链网络中，我们需要一种特殊的货币来支付我们在网络上的操作费用。这种货币称为 **Gas**。在 **Optimism** 网络中，我们使用 **ETH** 作为 **Gas**。
+In blockchain networks, we need a special currency to pay for our operations on the network. This currency is called **Gas**. In the **Optimism** network, we use **ETH** as **Gas**.
 
-获取测试ETH的方式，主要依靠水龙头。你可以在Google搜索 **Optimism Sepolia Testnet Faucet**，找到一个可用的水龙头，然后输入您的钱包地址，点击 **Get ETH** 即可获取测试ETH。
+The main way to get test ETH is through faucets. You can Google search for **Optimism Sepolia Testnet Faucet**, find an available faucet, enter your wallet address, and click **Get ETH** to receive test ETH.
 
-不过，今年以来，由于区块链行业的火爆，水龙头的使用频率也越来越高，因此有时候会出现水龙头无法使用的情况，或者添加了更多的验证，尤其是资金验证，使得获取测试代币的过程变得困难。
-如果你没有找到合适的方法，可以通过在 **Github** 的 **Issue** 中留言邮箱地址，并备注获取测试代币，我们会尽快为您提供0.5 ETH的测试代币。
+However, due to the blockchain industry's popularity this year, faucets are being used more frequently, sometimes leading to unavailability or additional verification requirements, especially financial verification, making it harder to obtain test tokens.
+If you can't find a suitable method, you can leave your email address in a **Github** **Issue** and mention that you need test tokens - we'll provide you with 0.5 ETH test tokens as soon as possible.
 
 
-2. 正式进入开发
+2. Starting Development
 ---------------
 
-完成上述的准备工作后，我们就可以开始正式进入开发了。这个教程会带着大家Step by Step的实现一个简单的功能，可以向 **Optimism** 网络发起一笔调用 `sendHello` 合约接口的交易。
-然后你的这一次 **Say Hello** 的行为将永久的记录在区块链上。你可以在这次调用中，为使用的账户地址取个名字，合约会记录这个信息。在未来的任何时候，
-你使用发起这次交易的账户调用 `whoami` 接口，合约都会返回你的名字。
+After preparing the above, we can start development. This tutorial will guide you step-by-step to implement a simple function that can send a transaction to the **Optimism** network to call the `sendHello` contract interface.
+Then your **Say Hello** action will be permanently recorded on the blockchain. You can name the account address used in this transaction in the future. When you use the account address to call the `whoami` interface in the future, the contract will return your name.
 
-正如前面所说，我们可以将区块链网络理解为一个服务器。我们的智能合约就是这个服务器上的一个程序，我们可以通过调用这个程序的接口来与这个服务器进行交互。因此，在游戏开发中，我们其实也需要开发两个部分：
+As mentioned earlier, we can think of the blockchain network as a server. Our smart contract is a program on this server, and we can interact with this server through the interface of this program. Therefore, in game development, we need to develop two parts:
 
-前端：我们使用 **Godot** 引擎来支撑游戏交互和游戏逻辑的开发。
+Frontend: We use the **Godot** engine to support the development of game interaction and game logic.
 
-智能合约（服务器程序）：我们使用 **Solidity** 语言来编写智能合约，并将其部署到区块链网络上。
+Smart contract (server program): We use the **Solidity** language to write smart contracts and deploy them to the blockchain network.
 
-2.1. 创建一个新的Godot项目
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+2.1. Creating a New Godot Project
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TODO: @shanghua
 
-2.2. 编写Hello Optimism智能合约
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-在ETH生态中，绝大多数虚拟机都是使用的EVM，Optimism也不例外。编写EVM的智能合约，需要用到Solidity语言（也有很多其他的项目，可以支撑大家使用其他语言来编写EVM的智能合约，这一方面的内容读者如果感兴趣，可以自行探索）。
+2.2. Writing Hello Optimism Smart Contracts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In the ETH ecosystem, most virtual machines are using EVM, and Optimism is no exception. Writing EVM smart contracts requires the use of the Solidity language (there are also other projects that can support the use of other languages to write EVM smart contracts, and readers who are interested can explore this aspect on their own).
 
-下面是一个简单的 **HelloWorld** 智能合约。这个合约有三个接口：
+Below is a simple **HelloWorld** smart contract. This contract has three interfaces:
 
 .. code-block:: solidity
 
@@ -148,69 +147,66 @@ TODO: @shanghua
       }
    }
 
-其中：
+Among them:
 
-* `callHello` 接口是一个只读接口，不会改变合约的状态，只是返回一个字符串。
+* `callHello` is a read-only interface that does not change the state of the contract and simply returns a string.
 
-* `sendHello` 接口是一个写接口，会改变合约的状态，将调用者的地址和传入的用户名绑定。
+* `sendHello` is a write interface that changes the state of the contract and binds the caller's address and the username passed in.
 
-* `whoami` 接口是一个只读接口，会返回调用者的用户名。
+* `whoami` is a read-only interface that returns the username of the caller.
 
 
-2.3. 编译&部署 Hello Optimism 智能合约
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2.3. Compiling and Deploying Hello Optimism Smart Contracts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-在部署合约的工作上，本教程选用Remix来完成，因为它是一个非常好用的在线IDE，可以帮助大家快速上手。
-当然，大家也可以选择其他的开发框架，比如Truffle，Hardhat等，它们往往有更强大的能力，但需要花点时间学习，大家可以自行钻研。在本教程中，暂时不涉及这部分内容。
+In the deployment of contracts, this tutorial uses Remix because it's a very useful online IDE that helps with quick hands-on experience.
+Of course, you can also choose other development frameworks like Truffle, Hardhat, etc., which often have more powerful capabilities but require some time to learn. You can explore this aspect on your own in this tutorial.
 
-Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.28+commit.7893614a.js
+Remix address: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.28+commit.7893614a.js
 
-打开Remix后，我们在左侧的文件夹中新建一个文件，命名为 **HelloWorld.sol** ，然后将上面的合约代码复制到文件中。
+Open Remix, create a new file in the left file folder named **HelloWorld.sol**, and copy the above contract code into the file.
 
 .. image:: ./_static/remix00.png
    :alt:
 
-然后我们点击 **Solidity Compiler**，编译合约。
+Then click **Solidity Compiler** to compile the contract.
 
 .. image:: ./_static/remix01.jpg
    :alt:
 
-注意：编译后，在图示的3，4处，可以复制后续编写gdscript调用代码所需要的ABI, Bytecode。
+Note: After compiling, you can copy the ABI and Bytecode needed for subsequent GDScript code writing in the 3, 4 places in the figure.
 
-接下来，我们点击 **Deploy & Run Transactions** 来进行合约部署。部署合约时，有一些选项，其中 **Environment** 选项，可以选择部署环境。选择 `Remix VM(Cancun)` 会将合约部署在一个remix构建的本地环境上。
-这里我们选择 **Injected Provider - Metamask** 选项，这样我们可以使用metamask来部署合约。合约最终会被部署到当前metamask配置的网络上。
+Next, click **Deploy & Run Transactions** to deploy the contract. When deploying the contract, there are some options, including the **Environment** option. Selecting `Remix VM(Cancun)` will deploy the contract on a local environment built by Remix.
+Here we select the **Injected Provider - Metamask** option, so we can use metamask to deploy the contract. The contract will eventually be deployed to the network configured in the current metamask.
 
 .. image:: ./_static/remix03.jpg
    :alt:
 
-部署完成后，我们可以在 **Deployed Contractd** 一栏，看到我们部署的合约，以及合约的地址。并可以使用其提供的交互界面，和合约进行交互。在编写本教程时，我们的合约被部署到了：
+After deployment, we can see the deployed contract and its address in the **Deployed Contractd** column. We can also use its provided interaction interface to interact with the contract. When writing this tutorial, our contract was deployed to:
 
    `0x71b215024ed4d2603b654379809feabf726c66f0`
 
-可以在OP浏览器上查看该合约的信息: https://sepolia-optimism.etherscan.io/address/0x71b215024ed4d2603b654379809feabf726c66f0
+You can view the information about this contract on the OP browser: https://sepolia-optimism.etherscan.io/address/0x71b215024ed4d2603b654379809feabf726c66f0
 
 
 
-2.4. 使用GDScript调用Hello Optimism智能合约
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2.4. Using GDScript to Call Hello Optimism Smart Contracts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-接下来，我们使用GDScript来编写调用我们部署的合约的代码。需要用到集成了GDWeb3模块编译出的Godot引擎可执行程序。
+Next, we use GDScript to write code to call the deployed contract. We need the following four things to start deployment:
 
-在开始部署之前，我们需要准备以下四个东西：
+1. **Contract Address**: We get the contract address when we deploy the contract. This address is the unique identifier of the contract on the blockchain network.
 
-1. **合约地址**：在前面部署合约时，我们得到了合约地址，这个地址是合约在区块链网络上的唯一标识。
+2. **Contract ABI**: We get the ABI when we compile the contract. The ABI is a json format data that describes the interfaces of the contract.
 
-2. **合约ABI**：在前面编译合约时，有提到如何获取ABI，这个ABI是一个json格式的数据，描述了合约的接口。
+3. **Node RPC Request Address**: When using the GDWeb3 module, we need a node RPC request address. This address is a node address that can access the blockchain network. You can quickly create an Endpoints on QuickNode and get this address. The RPC URL used in this tutorial is: https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652
 
-3. **节点RPC请求地址**：在使用GDWeb3模块时，我们需要一个节点RPC请求地址，这个地址是一个可以访问到区块链网络的节点地址。大家可以在QuickNode上快速创建一个Endpoints，然后获取这个地址。
-教程中用到的RPC URL是：https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652
+You can also use this address directly, but it's not guaranteed to be available for a long time.
 
-也可以直接用教程中的这个地址，不过不保证长期可用。
-
-4. **私钥**: 私钥可以通过metamask导出当前账户的私钥来获取。切记不要向其他人泄露你的私钥，这是非常危险的行为，获取了私钥就获取了账户的控制权。
+4. **Private Key**: The private key can be obtained by exporting the private key of the current account from metamask. Remember not to disclose your private key to others - this is a very dangerous behavior, as obtaining the private key means obtaining control of your account.
 
 
-接下来，我们在GDScript中定义它们。
+Next, we define these in GDScript.
 
 .. code-block:: gdscript
 
@@ -220,7 +216,7 @@ Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVers
    """
    const NODE_RPC_URL := "https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652"
 
-现在，我们来编写调用 `sendHello` 合约接口的代码：
+Now, we write code to call the `sendHello` contract interface:
 
 .. code-block:: gdscript
 
@@ -260,11 +256,11 @@ Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVers
     print("tx_hash: ", tx_hash)
     return tx_hash
 
-对于 `send_hello` 来说，我们使用ABIHelper类来解析合约的ABI，然后调用 `pack` 方法打包调用参数，最后使用私钥来签名一笔交易，然后调用 `send_transaction` 方法来将交易发送的区块链网络上。
+For `send_hello`, we use the ABIHelper class to parse the ABI of the contract, then call the `pack` method to pack the call parameters, and finally use the private key to sign a transaction and call the `send_transaction` method to send the transaction to the blockchain network.
 
-对于这种会修改合约状态的交易，我们需要支付一定的Gas费用。这个Gas费用会被区块链网络的矿工收取，用于维护网络的运行。同时，合约的执行结果也不会同步返回，它返回的是交易哈希，我们可以通过这个哈希来查询交易的执行结果。
+For transactions that modify the state of the contract, we need to pay a certain Gas fee. This Gas fee will be charged by the miners of the blockchain network for maintaining the operation of the network. The execution result of the contract will not be returned synchronously, but instead return a transaction hash. We can query the execution result of the transaction through this hash.
 
-接下来，我们来编写调用 `whoami` 合约接口的代码，它可以简洁的查询 `sendHello` 的执行结果，即将当前地址的用户名返回。
+Next, we write code to call the `whoami` contract interface, which can simply query the execution result of `sendHello` by returning the username of the current address.
 
 .. code-block:: gdscript
 
@@ -302,17 +298,17 @@ Remix地址: https://remix.ethereum.org/#lang=en&optimize=false&runs=200&evmVers
       print("call result: ", result)
       return result
 
-其中 `current_address` 代表的是当前使用的账户地址，这个地址是通过私钥生成的，我们可以通过这个地址来查询当前账户的用户名。在示例代码中，它是一个全局变量。
+Among them, `current_address` represents the account address currently used. This address is generated from the private key and can be used to query the username of the current account. In the example code, it's a global variable.
 
 
-2.5. 编写游戏的UI界面
-~~~~~~~~~~~~~~~~~~~~~
+2.5. Writing Game UI
+~~~~~~~~~~~~~~~~~~~
 
 TODO: @shanghua
 
 
-2.6. 运行游戏
-~~~~~~~~~~~~~~
+2.6. Running the Game
+~~~~~~~~~~~~~~~~~~~~~
 
 
 
