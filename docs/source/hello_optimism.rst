@@ -98,7 +98,7 @@ In blockchain networks, we need a special currency to pay for our operations on 
 The main way to get test ETH is through faucets. You can Google search for **Optimism Sepolia Testnet Faucet**, find an available faucet, enter your wallet address, and click **Get ETH** to receive test ETH.
 
 However, due to the blockchain industry's popularity this year, faucets are being used more frequently, sometimes leading to unavailability or additional verification requirements, especially financial verification, making it harder to obtain test tokens.
-If you can't find a suitable method, you can leave your email address in a **Github** **Issue** and mention that you need test tokens - we'll provide you with 0.5 ETH test tokens as soon as possible.
+If you can't find a suitable method, you can leave your email address & optimism sepolia testnet address in a **Github** **Issue** and mention that you need test tokens - we'll provide you with 0.5 ETH test tokens as soon as possible.
 
 
 2. Starting Development
