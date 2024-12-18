@@ -116,7 +116,18 @@ Smart contract (server program): We use the **Solidity** language to write smart
 2.1. Creating a New Godot Project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO: @shanghua
+We start by creating a new Godot project. In your Godot Project Manager, click **+Create** button on the top left to create a new Godot Project. 
+
+.. image:: ./_static/setting-up-project-01.png
+   :alt:
+
+You can specify the project name and project path you prefer in the panel. By checking the **Create Folder**, the project will be placed in `/path/project_name` If not checked, the project will be created directly in `/path`. By clicking `Create & Edit` button on the bottom left, you will be able to enter and edit your newly created Godot project.
+
+.. image:: ./_static/setting-up-project-02.png
+   :alt:
+
+You can find more detail of setting up a new project in the official documentation: https://docs.godotengine.org/en/stable/getting_started/first_2d_game/01.project_setup.html
+
 
 2.2. Writing Hello Optimism Smart Contracts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -302,10 +313,57 @@ Among them, `current_address` represents the account address currently used. Thi
 
 
 2.5. Writing Game UI
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO: @shanghua
+We prepared a small demo to visualize the above functionality: https://github.com/qingfengzxr/HelloOptimism
 
+Godot has a very powerful and easy-to-use UI system that allows you to build your Game UI fast and nicely. 
+
+This demo include a **LineEdit** UI component to handle `username` input, a **Button** UI component to call `callHello` and `sendHello` functions, and a **Label** UI component to show the response from the chain. If `username` is empty, **Button** clicking will call `callHello` function in the contract, and return a default `Hello, Optimism!` from the contract. If `username` is set, **Button** clicking will call `sendHello` function in the contract first, with the transaction body containing your `username` and your `privateKey`. Then it will call whoami function to get the previously sent username from the contract with the address converted from the `privateKey`.
+
+.. image:: ./_static/gui-01.png
+   :alt:
+
+By default the editor window mainly contains 5 parts. The scene tree for currently opened node (in red box), the file browser for file management (in green box), the scene and script editor for managing current node hierarchy and coding with gdscript (in yellow box), the inspector for currently opened node (in blue box) and debugging console (in gray box).
+
+.. image:: ./_static/gui-02.png
+   :alt:
+
+This demo including only one node as the main UI scene and two gdscript files. The `main.gd` is used to control the actual UI, and the `hello_optimism.gd` is autoloaded as the static API for the simple contract. 
+
+Autoloaded script could be managed in **Project->Project Settings->Globals->Autoload**. Once a script is set as autoloaded, it can be called without attaching to a instantiated node.
+
+.. image:: ./_static/gui-04.png
+   :alt:
+
+You can setup your privateKey at inspector of the main node attached with main.gd script with the `Private Key` variable. You can make a variable accessable in the inspector by adding `@export` decorator before the declaration of the variable.
+
+.. code-block:: gdscript
+
+   @export var private_key: String = ""
+
+   func _on_button_pressed() -> void:
+      pass
+
+.. image:: ./_static/gui-03.png
+   :alt:
+
+The **Button** submit event is passed to `main.gd` by connecting `pressed` event signal to `_on_button_pressed` function. 
+
+First select the **Button** node in the main node hierarchy
+
+.. image:: ./_static/gui-07.png
+   :alt:
+
+Then in the inspector, switch tab to **Node** to manage signals for current **Button** node. Double click the `pressed` signal.
+
+.. image:: ./_static/gui-05.png
+   :alt:
+
+In the pop up panel, select the node containing the target function for connecting the signal. You can select any function in nodes in parent hierarchy as the slot as long it has a valid function signature.
+
+.. image:: ./_static/gui-06.png
+   :alt:
 
 2.6. Running the Game
 ~~~~~~~~~~~~~~~~~~~~~
