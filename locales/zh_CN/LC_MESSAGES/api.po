@@ -72,21 +72,81 @@ msgstr ""
 msgid "ABIHelper"
 msgstr ""
 
-#: ../../source/api.rst:59
+#: ../../source/api.rst:781
 msgid "EthAccountManager"
-msgstr ""
+msgstr "以太坊账户管理器"
 
-#: ../../source/api.rst:62
+msgid "-----------------"
+msgstr "-----------------"
+
+msgid "`EthAccountManager` is a class for managing Ethereum accounts. It provides functionality to create new Ethereum accounts and import accounts from private keys."
+msgstr "`EthAccountManager` 是一个管理以太坊账户的类。它提供了创建新的以太坊账户以及从私钥导入账户的功能。"
+
+msgid ".. warning::"
+msgstr ".. 警告::"
+
+msgid "The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!"
+msgstr "此类提供的API尚未经过审计，可能存在安全漏洞。请采取预防措施，适当清除内存，安全存储私钥，并在生产中使用前彻底测试交易接收和发送功能！"
+
+msgid "Methods"
+msgstr "方法"
+
+msgid "1. create"
+msgstr "1. 创建"
+
+msgid "Creates a new Ethereum account."
+msgstr "创建一个新的以太坊账户。"
+
+
+#: ../../source/api.rst:851
 msgid "EthAccount"
-msgstr ""
+msgstr "以太坊账户"
 
-#: ../../source/api.rst:65
-msgid "EthWallet"
-msgstr ""
+msgid "`EthAccount` is a class that handles basic operations for Ethereum accounts. It provides access to account information and signing data. Through `EthAccount`, users can obtain the private key, public key, and address of the account, and use the account's private key to sign data."
+msgstr "`EthAccount` 是一个处理以太坊账户基本操作的类。它提供了访问账户信息和签名数据的功能。通过 `EthAccount`，用户可以获取账户的私钥、公钥和地址，并使用账户的私钥对数据进行签名。"
 
-#: ../../source/api.rst:68
+msgid ".. note::"
+msgstr ".. 注意::"
+
+msgid "Please note that instances of `EthAccount` must be generated through `EthAccountManager` to ensure proper initialization and management of the account."
+msgstr "请注意，`EthAccount` 的实例必须通过 `EthAccountManager` 生成，以确保账户的正确初始化和管理。"
+
+msgid "1. get_private_key"
+msgstr "1. 获取私钥"
+
+msgid "Gets the private key of the account."
+msgstr "获取账户的私钥。"
+
+
+#: ../../source/api.rst:983
 msgid "EthWalletManager"
-msgstr ""
+msgstr "以太坊钱包管理器"
+
+msgid "`EthWalletManager` is a class for managing multiple Ethereum HD wallets. It provides functionality to create, load, and save wallets. Through this manager, new wallet instances can be generated or existing wallets can be restored from mnemonic phrases."
+msgstr "`EthWalletManager` 是一个管理多个以太坊分层确定性（HD）钱包的类。它提供了创建、加载和保存钱包的功能。通过此管理器，可以生成新的钱包实例或通过助记词恢复现有钱包。"
+
+msgid "1. create"
+msgstr "1. 创建"
+
+msgid "Creates a new Ethereum wallet."
+msgstr "创建一个新的以太坊钱包。"
+
+
+#: ../../source/api.rst:1087
+msgid "EthWallet"
+msgstr "以太坊钱包"
+
+msgid "`EthWallet` is a class that implements hierarchical deterministic (HD) wallet functionality. It allows users to manage multiple Ethereum accounts and provides functions for adding, removing accounts, and handling mnemonic phrases."
+msgstr "`EthWallet` 是一个实现分层确定性（HD）钱包功能的类。它允许用户管理多个以太坊账户，并提供添加、删除账户和处理助记词的功能。"
+
+msgid "Instances of `EthWallet` must be generated through `EthWalletManager` to ensure proper initialization and management of the wallet."
+msgstr "`EthWallet` 的实例必须通过 `EthWalletManager` 生成，以确保钱包的正确初始化和管理。"
+
+msgid "1. add"
+msgstr "1. 添加"
+
+msgid "Adds a new Ethereum account to the wallet."
+msgstr "向钱包添加一个新的以太坊账户。"
 
 #: ../../source/api.rst:71
 msgid "Secp256k1Wrapper"

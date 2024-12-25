@@ -776,19 +776,493 @@ For `unpack_into_dictionary`, the decoded value is a dictionary where the keys a
 
 For `unpack_into_array`, the decoded value is an array where each element corresponds to a parameter value.
 
-
+---------------------------------------------------------------------------------------------------------
 
 EthAccountManager
 -----------------
+`EthAccountManager` is a class for managing Ethereum accounts. It provides functionality to create new Ethereum accounts and import accounts from private keys.
+
+.. warning::
+     The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
+
+Methods
+~~~~~~~
+1. create
+^^^^^^^^^
+Creates a new Ethereum account.
+
+.. code-block:: gdscript
+
+    # entropy: PackedByteArray (optional)
+    # return: EthAccount
+    var account_manager = EthAccountManager.new()
+    var account = account_manager.create()
+
+Parameters:
+    1. ``entropy``: ``PackedByteArray`` (optional); Entropy used to generate a random private key (must be 32 bytes). If empty, the internal system random number is used.
+Returns:
+   ``EthAccount``: An instance of the created Ethereum account object.
+
+
+.. note::
+    To ensure the security of the generated account, although a certain degree of entropy is provided internally, we still recommend that you provide a higher entropy as a parameter.
+
+---------------------------------------------------------------------------------------------------------
+
+1. privateKeyToAccount
+^^^^^^^^^^^^^^^^^^^^^^
+Creates an Ethereum account based on the provided private key.
+
+.. code-block:: gdscript
+
+    # privkey: PackedByteArray
+    # return: EthAccount
+    var account_manager = EthAccountManager.new()
+    var account = account_manager.privateKeyToAccount(private_key)
+
+Parameters:
+    1. ``privkey``: ``PackedByteArray``; The private key bytes of the account. Must be in a valid Ethereum private key format.
+
+Returns:
+    ``EthAccount``: An instance of the Ethereum account created from the private key.
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+~~~~~~~
+The following example demonstrates how to use EthAccountManager to create a new account and import an account from a private key:
+
+.. code-block:: gdscript
+
+    # Create an instance of the account manager
+    var account_manager = EthAccountManager.new()
+
+    # Create a new account
+    var new_account = account_manager.create(1)
+    print("New account address: ", new_account.get_address())
+    
+    # Import an account from a private key
+    var private_key = PackedByteArray([...]) # 32-byte private key
+    var imported_account = account_manager.privateKeyToAccount(private_key)
+    print("Imported account address: ", imported_account.get_address())
+
+---------------------------------------------------------------------------------------------------------
 
 EthAccount
 ----------
+`EthAccount` is a class that handles basic operations for Ethereum accounts. It provides access to account information and signing data. Through `EthAccount`, users can obtain the private key, public key, and address of the account, and use the account's private key to sign data.
 
-EthWallet
----------
+.. note:: 
+    Please note that instances of `EthAccount` must be generated through `EthAccountManager` to ensure proper initialization and management of the account.
+
+.. warning:: 
+    The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
+
+Methods
+~~~~~~~
+1. get_private_key
+^^^^^^^^^^^^^^^^^^
+Gets the private key of the account.
+
+.. code-block:: gdscript
+
+    # return: PackedByteArray
+    var private_key = account.get_private_key()
+
+Returns:
+    ``PackedByteArray``: The private key bytes of the account.
+
+---------------------------------------------------------------------------------------------------------
+
+1. get_public_key
+^^^^^^^^^^^^^^^^^
+Gets the public key of the account.
+
+.. code-block:: gdscript
+
+    # return: PackedByteArray
+    var public_key = account.get_public_key()
+
+Returns:
+    ``PackedByteArray``: The public key bytes of the account.
+
+---------------------------------------------------------------------------------------------------------
+
+3. get_address
+^^^^^^^^^^^^^^
+Gets the address of the account (in byte format).
+
+.. code-block:: gdscript
+
+    # return: PackedByteArray
+    var address = account.get_address()
+
+Returns:
+    ``PackedByteArray``: The address bytes of the account.
+
+---------------------------------------------------------------------------------------------------------
+
+4. get_hex_address
+^^^^^^^^^^^^^^^^^^
+Gets the address of the account in hexadecimal format.
+
+.. code-block:: gdscript
+
+    # return: String
+    var hex_address = account.get_hex_address()
+
+Returns:
+    ``String``: The hexadecimal string address of the account.
+
+---------------------------------------------------------------------------------------------------------
+
+1. sign_data
+^^^^^^^^^^^^
+Signs the provided data using the account's private key.
+
+.. code-block:: gdscript
+
+    # data: PackedByteArray
+    # return: PackedByteArray
+    var signature = account.sign_data(data)
+
+Parameters:
+    1. ``data``: ``PackedByteArray``; The data to be signed.
+
+Returns:
+    ``PackedByteArray``: The signed data.
+
+---------------------------------------------------------------------------------------------------------
+
+6. sign_data_with_prefix
+^^^^^^^^^^^^^^^^^^^^^^^^
+Signs the data after computing the keccak256 hash of the Ethereum signed message prefix.
+
+.. code-block:: gdscript
+
+    # data: PackedByteArray
+    # return: PackedByteArray
+    var signature = account.sign_data_with_prefix(data)
+
+Parameters:
+    1. ``data``: ``PackedByteArray``; The data to be signed.
+
+Returns:
+    ``PackedByteArray``: The signed data.
+
+.. note::
+    - This method follows the Ethereum signed message standard:
+    - keccak256("\\x19Ethereum Signed Message:\\n" + len(message) + message)
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+~~~~~~~
+The following example demonstrates how to perform basic operations using EthAccount:
+
+.. code-block:: gdscript
+
+    # Assume we have an account instance
+    var account = eth_account_manager.create()
+
+    # Get account information
+    print("Address: ", account.get_hex_address())
+    print("Public Key: ", account.get_public_key().hex_encode())
+
+    # Sign some data
+    var data = "Hello, Ethereum!".to_utf8_buffer()
+    var signature = account.sign_data(data)
+    print("Signature: ", signature.hex_encode())
+
+    # Sign with Ethereum message prefix
+    var prefixed_signature = account.sign_data_with_prefix(data)
+    print("Prefixed Signature: ", prefixed_signature.hex_encode())
+
+---------------------------------------------------------------------------------------------------------
 
 EthWalletManager
 ----------------
+`EthWalletManager` is a class for managing multiple Ethereum HD wallets. It provides functionality to create, load, and save wallets. Through this manager, new wallet instances can be generated or existing wallets can be restored from mnemonic phrases.
+
+.. warning::
+    The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
+
+Methods
+~~~~~~~ 
+1. create
+^^^^^^^^^
+Creates a new Ethereum wallet.
+
+.. code-block:: gdscript
+
+    # strength: int (optional)
+    # entropy: PackedByteArray (optional) 
+    # passphrase: String (optional)
+    # return: EthWallet
+    var wallet = wallet_manager.create()
+    var wallet = wallet_manager.create(1, entropy, "my passphrase")
+
+Parameters:
+    1. ``strength``: ``int`` (optional); create number of accounts.
+    2. ``entropy``: ``PackedByteArray`` (optional); entropy used when generating the wallet.
+    3. ``passphrase``: ``String`` (optional); passphrase for additional security.
+
+Returns:
+    ``EthWallet``: instance of the created wallet.
+
+---------------------------------------------------------------------------------------------------------
+
+1. from_mnemonic
+^^^^^^^^^^^^^^^^
+Restore a wallet from mnemonic phrase.
+
+.. code-block:: gdscript
+
+    # mnemonic: PackedStringArray
+    # passphrase: String (optional)
+    # return: EthWallet
+    var wallet = wallet_manager.from_mnemonic(mnemonic, "optional passphrase")
+
+Parameters:
+    1. ``mnemonic``: ``PackedStringArray``;The mnemonic phrase, currently only supports a mnemonic phrase consisting of 12 English words.
+    2. ``passphrase``: ``String`` (optional); passphrase.
+
+Returns:
+    ``EthWallet``: instance of the created wallet.
+
+---------------------------------------------------------------------------------------------------------
+
+3. load
+^^^^^^^
+Load an wallet.
+
+.. code-block:: gdscript
+
+    # return: EthWallet
+    var wallet = wallet_manager.load()
+
+Returns:
+    ``EthWallet``: instance of the loaded wallet.
+
+---------------------------------------------------------------------------------------------------------
+
+4. save
+^^^^^^^
+Save the wallet.
+
+.. code-block:: gdscript
+
+    # hd_wallet: EthWallet
+    # return: bool
+    var success = wallet_manager.save(wallet)
+
+Parameters:
+    1. ``hd_wallet``: ``EthWallet``; The wallet to be saved.
+
+Returns:
+    ``bool``: ``true`` was successful, ``false`` was failed
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+~~~~~~~
+A complete example code for reference.
+
+.. code-block:: gdscript
+
+    # Create a wallet manager
+    var wallet_manager = EthWalletManager.new()
+    
+    # Create a new wallet with 1 account
+    var wallet = wallet_manager.create(1)
+    
+    # Save the wallet
+    wallet_manager.save(wallet)
+    
+    # Load the wallet later
+    var loaded_wallet = wallet_manager.load()
+
+---------------------------------------------------------------------------------------------------------
+
+EthWallet
+---------
+`EthWallet` is a class that implements hierarchical deterministic (HD) wallet functionality. It allows users to manage multiple Ethereum accounts and provides functions for adding, removing accounts, and handling mnemonic phrases.
+
+.. warning:: 
+    The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
+
+.. note:: 
+    Instances of `EthWallet` must be generated through `EthWalletManager` to ensure proper initialization and management of the wallet.
+
+Methods
+~~~~~~~
+1. add
+^^^^^^
+Adds a new Ethereum account to the wallet.
+
+.. code-block:: gdscript
+
+    # privateKey: PackedByteArray (optional)
+    # return: bool
+    # Create a wallet manager
+    var wallet_manager = EthWalletManager.new()
+
+    var wallet = wallet_manager.create()
+
+    var success = wallet.add()   # Generate a new account
+    var success = wallet.add(private_key)  # Add an account with an existing private key
+
+Parameters:
+    1. ``privateKey``: ``PackedByteArray`` (optional); The private key of the new account. If empty, a new account compliant with BIP32 will be generated.
+Returns:
+    ``bool``: ``true`` was successful, ``false`` was failed
+
+---------------------------------------------------------------------------------------------------------
+
+2. remove_address
+^^^^^^^^^^^^^^^^^
+Removes an account by address.
+
+.. code-block:: gdscript
+
+    # address: PackedByteArray
+    # return: bool
+    var success = wallet.remove_address(address)
+
+Parameters:
+    1. ``address``: ``PackedByteArray``; The address to be removed.
+
+Returns:
+    ``bool``: ``true`` was successful, ``false`` was failed
+
+---------------------------------------------------------------------------------------------------------
+
+3. remove
+^^^^^^^^^
+Removes the account by index.
+.. code-block:: gdscript
+
+    # index: int
+    # return: bool
+    var success = wallet.remove(0)  #  Remove the first account
+
+Parameters:
+    1. ``index``: ``uint64_t``; The index of the account to be removed.
+
+Returns:
+    ``bool``: ``true`` was successful, ``false`` was failed
+
+---------------------------------------------------------------------------------------------------------
+
+4. clear
+^^^^^^^^
+Safely clears all wallet data, including accounts and mnemonic phrases.
+
+.. code-block:: gdscript
+
+    # return: bool
+    var success = wallet.clear()
+
+Returns:
+    ``bool``: ``true`` was successful, ``false`` was failed
+
+---------------------------------------------------------------------------------------------------------
+
+5. get_accounts
+^^^^^^^^^^^^^^^
+Gets all accounts in the wallet.
+
+.. code-block:: gdscript
+
+    # return: Array[EthAccount]
+    var accounts = wallet.get_accounts()
+
+Returns:
+    ``Array[EthAccount]``: An array of Ethereum accounts.
+
+---------------------------------------------------------------------------------------------------------
+
+1. get_mnemonic
+^^^^^^^^^^^^^^^
+Gets the wallet's mnemonic phrase following the BIP39 protocol, which can be used for export to other BIP32 standard HD wallets.
+
+.. code-block:: gdscript
+
+    # return: PackedStringArray
+    var mnemonic = wallet.get_mnemonic()
+
+Returns:
+    ``PackedStringArray``: The wallet mnemonic phrase.
+
+---------------------------------------------------------------------------------------------------------
+
+7. save
+^^^^^^^
+Save Ethereum wallet.
+
+.. code-block:: gdscript
+
+    # return: bool
+    var success = wallet.save()
+
+Returns:
+    ``bool``: ``true`` was successful, ``false`` was failed
+
+---------------------------------------------------------------------------------------------------------
+
+1. load
+^^^^^^^
+Loads an Ethereum wallet.
+
+.. code-block:: gdscript
+
+    # return: EthWallet
+    var wallet = wallet.load()
+
+Returns:
+    ``EthWallet``:  The loaded EthWallet instance.
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+~~~~~~~
+A complete example code for reference.
+
+.. code-block:: gdscript
+    
+    var address_const = [
+        "c75185ff30635988d4ae44ab544fc66130932568",
+        "fce4b4e710f93dbbb219555f71a62b4cebcfa907",
+        "f85ccde06eab0391d976efff4d9de02eca09c566",
+        "fb30288ec7c57819547b9b0f3cdf3941cad66790",
+        "dee895839eb69fe79336c76b20045f6ca2f37f6a"
+    ]
+        var ethMgr = EthWalletManager.new()
+        var m = ["oil", "bamboo", "reject", "omit", "gentle", "boss", "useless", "fog", "genuine", "primary", "divorce", "abstract"]
+        var wallet = ethMgr.from_mnemonic(m)
+        var counts = 5
+        for index in counts:
+            wallet.add()
+
+        var accounts = wallet.get_accounts()
+
+        if accounts.size() > 0:
+            for i in range(accounts.size()):
+                var account = accounts[i]
+                # Ensure the account is of type EthAccount
+                if account is EthAccount:
+                    var eth_account = account as EthAccount  # Cast to EthAccount
+                    var address = eth_account.get_address()  # Call the method of EthAccount
+                    assert(address.hex_encode() == address_const[i])  # Check if it matches using the index
+                    print("Account Address:", address.hex_encode())
+                else:
+                    print("Object at index", i, "is not of type EthAccount")
+        else:
+            print("No accounts found in the wallet.")
+
+        pass
+
+---------------------------------------------------------------------------------------------------------
 
 Secp256k1Wrapper
 ----------------
