@@ -44,14 +44,284 @@ TODO
 
 RPC methods
 ~~~~~~~~~~~
+
+For RPC requests, we offer two processing methods:
+
+  * Synchronous call
+  * Asynchronous call
+
+For synchronous calls, the interface directly returns the final execution result. For asynchronous calls, the interface returns related request parameters, requiring developers to use Godot engine capabilities for asynchronous processing.
+Asynchronous call interfaces are uniformly prefixed with "async_" before the synchronous interface name.
+
+
 1. chain_id
 ^^^^^^^^^^^
-2. call_contract
+chain_id() retrieves the current chain ID for transaction replay protection.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # id: empty or self-defined id, used to identify this request
+    # return: BigInt
+   var chain_id = op.chain_id()
+
+2. network_id
+^^^^^^^^^^^^^
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.network_id()
+
+
+3. block_by_hash
 ^^^^^^^^^^^^^^^^
-3. get_block_number
+
+block_by_hash() returns the given full block information.
+
+.. note::
+
+    Note that loading full blocks requires two requests. Use header_by_hash()
+    if you don't need all transactions or uncle headers.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # hash: string
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.block_by_hash(hash)
+
+
+
+4. header_by_hash
+^^^^^^^^^^^^^^^^^
+
+header_by_hash() returns the block header with the given hash.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # hash: string
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.header_by_hash(hash)
+
+
+5. block_by_number
 ^^^^^^^^^^^^^^^^^^^
-4. ...todo
-^^^^^^^^^^^
+
+block_by_number() returns a block from the current canonical chain. If number is null, the
+latest known block is returned.
+
+.. note::
+
+    Note that loading full blocks requires two requests. Use header_by_number()
+    if you don't need all transactions or uncle headers.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # number: BigInt; block number
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var number = BigInt.new()
+    var chain_id = op.block_by_number(number)
+
+6. header_by_number
+^^^^^^^^^^^^^^^^^^^
+
+HeaderByNumber returns a block header from the current canonical chain. If number is
+null, the latest known header is returned.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # number: BigInt; block number
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var number = BigInt.new()
+    var chain_id = op.header_by_number(number)
+
+7. block_number
+^^^^^^^^^^^^^^^
+
+block_number() returns the most recent block number
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.block_number()
+
+
+8. block_receipts_by_number
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+block_receipts_by_number() returns the receipts of a given block number. The block number can be specified as follows:
+
+* "earliest": 0
+* "pending": -1
+* "latest": -2
+* "finalized": -3
+* "safe": -4
+* "default": any positive integer, representing the block number
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # number: BigInt; block number
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var number = BigInt.new()
+    var chain_id = op.block_receipts_by_number(number)
+
+
+9. block_receipts_by_hash
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+block_receipts_by_hash() returns the receipts of a given block hash.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # hash: string; block hash
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.block_receipts_by_hash(hash)
+
+
+10. transaction_by_hash
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+transaction_by_hash() returns the transaction with the given hash.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # hash: string; transaction hash
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.transaction_by_hash(hash)
+
+
+11. transaction_receipt_by_hash
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+transaction_receipt_by_hash() returns the receipt of a given transaction hash.
+
+.. note::
+
+    Note that the receipt is not available for pending transactions.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # hash: string; transaction hash
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.transaction_receipt_by_hash(hash)
+
+12. balance_at
+^^^^^^^^^^^^^^
+
+balance_at() returns the wei balance of the given account.
+The block number can be nil, in which case the balance is taken from the latest known block.
+
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # acount: string; address
+    # number: BigInt; block number
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.balance_at(address, number)
+
+
+13. nonce_at
+^^^^^^^^^^^^
+
+nonce_at() returns the nonce of the given account.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # acount: string; address
+    # number: BigInt; block number
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.nonce_at(address, number)
+
+14. send_transaction
+^^^^^^^^^^^^^^^^^^^^
+
+send_transaction() injects a signed transaction into the pending pool for execution.
+
+If the transaction was a contract creation use the TransactionReceipt method to get the
+contract address after the transaction has been mined.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # tx: string; signed transaction in hex format
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.send_transaction(tx)
+
+
+15. call_contract
+^^^^^^^^^^^^^^^^^
+
+call_contract() executes a message call transaction, which is directly executed in the VM
+of the node, but never mined into the blockchain.
+
+blockNumber selects the block height at which the call runs. It can be nil, in which
+case the code is taken from the latest known block. Note that state from very old
+blocks might not be available.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # call_msg: Dictionary; call message
+    # block_number: String; block number
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var block_number = ""
+    var chain_id = op.call_contract(call_msg, block_number, "")
+
+
+16. suggest_gas_price
+^^^^^^^^^^^^^^^^^^^^^
+
+suggest_gas_price() retrieves the currently suggested gas price to allow a timely
+execution of a transaction.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.suggest_gas_price()
+
+17. estimate_gas
+^^^^^^^^^^^^^^^^
+
+estimate_gas() tries to estimate the gas needed to execute a specific transaction based on
+the current pending state of the backend blockchain. There is no guarantee that this is
+the true gas limit requirement as other transactions may be added or removed by miners,
+but it should provide a basis for setting a reasonable default.
+
+Example
+~~~~~~~
+.. code-block:: gdscript
+    # call_msg: Dictionary; call message
+    # id: empty or self-defined id, used to identify this request
+    # return: Dictionary
+    var chain_id = op.estimate_gas(call_msg, "")
 
 
 LegacyTx
@@ -417,7 +687,8 @@ Get the hex string with 0x prefix representation of the BigInt object.
 JsonrpcHelper
 -------------
 .. note::
-   TODO
+   This is an internal class and is not intended for direct user use at the moment. We will provide relevant documentation when needed.
+
 
 
 ABIHelper
@@ -809,7 +1080,7 @@ Returns:
 
 ---------------------------------------------------------------------------------------------------------
 
-1. privateKeyToAccount
+2. privateKeyToAccount
 ^^^^^^^^^^^^^^^^^^^^^^
 Creates an Ethereum account based on the provided private key.
 
@@ -840,7 +1111,7 @@ The following example demonstrates how to use EthAccountManager to create a new 
     # Create a new account
     var new_account = account_manager.create(1)
     print("New account address: ", new_account.get_address())
-    
+
     # Import an account from a private key
     var private_key = PackedByteArray([...]) # 32-byte private key
     var imported_account = account_manager.privateKeyToAccount(private_key)
@@ -852,10 +1123,10 @@ EthAccount
 ----------
 `EthAccount` is a class that handles basic operations for Ethereum accounts. It provides access to account information and signing data. Through `EthAccount`, users can obtain the private key, public key, and address of the account, and use the account's private key to sign data.
 
-.. note:: 
+.. note::
     Please note that instances of `EthAccount` must be generated through `EthAccountManager` to ensure proper initialization and management of the account.
 
-.. warning:: 
+.. warning::
     The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
 
 Methods
@@ -874,7 +1145,7 @@ Returns:
 
 ---------------------------------------------------------------------------------------------------------
 
-1. get_public_key
+2. get_public_key
 ^^^^^^^^^^^^^^^^^
 Gets the public key of the account.
 
@@ -916,7 +1187,7 @@ Returns:
 
 ---------------------------------------------------------------------------------------------------------
 
-1. sign_data
+5. sign_data
 ^^^^^^^^^^^^
 Signs the provided data using the account's private key.
 
@@ -988,7 +1259,7 @@ EthWalletManager
     The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
 
 Methods
-~~~~~~~ 
+~~~~~~~
 1. create
 ^^^^^^^^^
 Creates a new Ethereum wallet.
@@ -996,7 +1267,7 @@ Creates a new Ethereum wallet.
 .. code-block:: gdscript
 
     # strength: int (optional)
-    # entropy: PackedByteArray (optional) 
+    # entropy: PackedByteArray (optional)
     # passphrase: String (optional)
     # return: EthWallet
     var wallet = wallet_manager.create()
@@ -1012,7 +1283,7 @@ Returns:
 
 ---------------------------------------------------------------------------------------------------------
 
-1. from_mnemonic
+2. from_mnemonic
 ^^^^^^^^^^^^^^^^
 Restore a wallet from mnemonic phrase.
 
@@ -1072,13 +1343,13 @@ A complete example code for reference.
 
     # Create a wallet manager
     var wallet_manager = EthWalletManager.new()
-    
+
     # Create a new wallet with 1 account
     var wallet = wallet_manager.create(1)
-    
+
     # Save the wallet
     wallet_manager.save(wallet)
-    
+
     # Load the wallet later
     var loaded_wallet = wallet_manager.load()
 
@@ -1088,10 +1359,10 @@ EthWallet
 ---------
 `EthWallet` is a class that implements hierarchical deterministic (HD) wallet functionality. It allows users to manage multiple Ethereum accounts and provides functions for adding, removing accounts, and handling mnemonic phrases.
 
-.. warning:: 
+.. warning::
     The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
 
-.. note:: 
+.. note::
     Instances of `EthWallet` must be generated through `EthWalletManager` to ensure proper initialization and management of the wallet.
 
 Methods
@@ -1182,7 +1453,7 @@ Returns:
 
 ---------------------------------------------------------------------------------------------------------
 
-1. get_mnemonic
+6. get_mnemonic
 ^^^^^^^^^^^^^^^
 Gets the wallet's mnemonic phrase following the BIP39 protocol, which can be used for export to other BIP32 standard HD wallets.
 
@@ -1210,7 +1481,7 @@ Returns:
 
 ---------------------------------------------------------------------------------------------------------
 
-1. load
+8. load
 ^^^^^^^
 Loads an Ethereum wallet.
 
@@ -1229,7 +1500,7 @@ Example
 A complete example code for reference.
 
 .. code-block:: gdscript
-    
+
     var address_const = [
         "c75185ff30635988d4ae44ab544fc66130932568",
         "fce4b4e710f93dbbb219555f71a62b4cebcfa907",
