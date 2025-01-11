@@ -331,7 +331,7 @@ By default the editor window mainly contains 5 parts. The scene tree for current
 
 This demo including only one node as the main UI scene and two gdscript files. The `main.gd` is used to control the actual UI, and the `hello_optimism.gd` is autoloaded as the static API for the simple contract. 
 
-Autoloaded script could be managed in **Project->Project Settings->Globals->Autoload**. Once a script is set as autoloaded, it can be called without attaching to a instantiated node.
+Autoloaded script could be managed in **Project -> Project Settings -> Globals -> Autoload**. Once a script is set as autoloaded, it can be called without attaching to a instantiated node.
 
 .. image:: ./_static/gui-04.png
    :alt:
@@ -365,10 +365,64 @@ In the pop up panel, select the node containing the target function for connecti
 .. image:: ./_static/gui-06.png
    :alt:
 
+The overall gdscript code for this **Hello World** demo is very simple and shown below. In this code which attached on root node of the **main.tscn**:
+
+Use **extends Control** to inherit Godot's built-in Control UI class.
+
+Use **$../..** to get a child node component with specific types as variables. 
+
+Use **func _on_button_pressed** as the event handler for the button click signal and process the main logic by interacting with GDWeb3 module.
+
+.. code-block:: gdscript
+
+   extends Control
+
+   onready var line_edit: LineEdit = $TextureRect/MarginContainer/VBoxContainer/HBoxContainer/LineEdit
+   onready var say_hi: Button = $TextureRect/MarginContainer/VBoxContainer/HBoxContainer/Button
+   onready var show_hello: Label = $TextureRect/MarginContainer/VBoxContainer/Label
+
+   export var private_key: String = ""
+
+   func _on_button_pressed() -> void:
+      var your_name = line_edit.text.strip_edges()
+      print("the input name is: %s" % [your_name])
+      if your_name.length() > 0:
+         if private_key.length() > 0:
+               var address = HelloOptimism.send_hello(your_name, private_key)
+               print("return address is: %s" % [address])
+               var send_hello_result = HelloOptimism.whoami()
+               show_hello.text = send_hello_result[0]
+         else:
+               show_hello.text = "Please set privatekey first"
+      else:
+         var call_hello_result = HelloOptimism.callHello()
+         print("call hello result: %s" % [call_hello_result])
+         if call_hello_result.size() > 0:
+               show_hello.text = call_hello_result[0]
+         else:
+               show_hello.text = "Something went wrong, please check console"
+
+
 2.6. Running the Game
 ~~~~~~~~~~~~~~~~~~~~~
 
+To run the game, there are three methods on the top right of the editor to use: **Run Project**, **Run Current Scene**, **Run Specific Scene**. We highlight these methods in the red box in the following screenshot. 
 
+.. image:: ./_static/run-game-01.png
+   :alt:
+
+By clicking **Run Project**, you will start the default main scene set in project setting. You can set the default main scene in **Project -> Project Setting -> Application -> Run -> Main Scene**.
+
+.. image:: ./_static/run-game-02.png
+   :alt:
+
+
+By clicking **Run Current Scene**, you will start the current selected scene tab as show in blue box in the previous screenshot.
+
+By clicking **Run Specific Scene**, Godot allows you to run any .tscn scene file. You can select a specific scene and click **Open** to start it.
+
+.. image:: ./_static/run-game-03.png
+   :alt:
 
 .. autosummary::
    :toctree: generated
