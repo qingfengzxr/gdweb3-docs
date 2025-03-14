@@ -7,7 +7,7 @@ Web3
 The web3 class is an abstraction for all blockchain networks. You can use this class to obtain instances for interacting with different networks.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
 
    var web3 = Web3.new()
@@ -20,7 +20,7 @@ Optimism
 Optimism is a class used for interacting with the OP network. It encapsulates the JSON-RPC interfaces and core protocols needed for interacting with the OP network.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
 
     const NODE_RPC_URL := "https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652"
@@ -55,21 +55,21 @@ Asynchronous call interfaces are uniformly prefixed with "async_" before the syn
 
 
 1. chain_id
-^^^^^^^^^^^
+~~~~~~~~~~~
 chain_id() retrieves the current chain ID for transaction replay protection.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: BigInt
    var chain_id = op.chain_id()
 
 2. network_id
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: Dictionary
@@ -77,7 +77,7 @@ Example
 
 
 3. block_by_hash
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 block_by_hash() returns the given full block information.
 
@@ -87,7 +87,7 @@ block_by_hash() returns the given full block information.
     if you don't need all transactions or uncle headers.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # hash: string
     # id: empty or self-defined id, used to identify this request
@@ -97,12 +97,12 @@ Example
 
 
 4. header_by_hash
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 header_by_hash() returns the block header with the given hash.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # hash: string
     # id: empty or self-defined id, used to identify this request
@@ -111,7 +111,7 @@ Example
 
 
 5. block_by_number
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~
 
 block_by_number() returns a block from the current canonical chain. If number is null, the
 latest known block is returned.
@@ -122,7 +122,7 @@ latest known block is returned.
     if you don't need all transactions or uncle headers.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # number: BigInt; block number
     # id: empty or self-defined id, used to identify this request
@@ -131,13 +131,13 @@ Example
     var chain_id = op.block_by_number(number)
 
 6. header_by_number
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 HeaderByNumber returns a block header from the current canonical chain. If number is
 null, the latest known header is returned.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # number: BigInt; block number
     # id: empty or self-defined id, used to identify this request
@@ -146,12 +146,12 @@ Example
     var chain_id = op.header_by_number(number)
 
 7. block_number
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 block_number() returns the most recent block number
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: Dictionary
@@ -159,7 +159,7 @@ Example
 
 
 8. block_receipts_by_number
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 block_receipts_by_number() returns the receipts of a given block number. The block number can be specified as follows:
 
@@ -171,7 +171,7 @@ block_receipts_by_number() returns the receipts of a given block number. The blo
 * "default": any positive integer, representing the block number
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # number: BigInt; block number
     # id: empty or self-defined id, used to identify this request
@@ -181,12 +181,12 @@ Example
 
 
 9. block_receipts_by_hash
-^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 block_receipts_by_hash() returns the receipts of a given block hash.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # hash: string; block hash
     # id: empty or self-defined id, used to identify this request
@@ -195,12 +195,12 @@ Example
 
 
 10. transaction_by_hash
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~
 
 transaction_by_hash() returns the transaction with the given hash.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # hash: string; transaction hash
     # id: empty or self-defined id, used to identify this request
@@ -209,7 +209,7 @@ Example
 
 
 11. transaction_receipt_by_hash
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 transaction_receipt_by_hash() returns the receipt of a given transaction hash.
 
@@ -218,7 +218,7 @@ transaction_receipt_by_hash() returns the receipt of a given transaction hash.
     Note that the receipt is not available for pending transactions.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # hash: string; transaction hash
     # id: empty or self-defined id, used to identify this request
@@ -226,14 +226,14 @@ Example
     var chain_id = op.transaction_receipt_by_hash(hash)
 
 12. balance_at
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 balance_at() returns the wei balance of the given account.
 The block number can be nil, in which case the balance is taken from the latest known block.
 
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # acount: string; address
     # number: BigInt; block number
@@ -243,12 +243,12 @@ Example
 
 
 13. nonce_at
-^^^^^^^^^^^^
+~~~~~~~~~~~
 
 nonce_at() returns the nonce of the given account.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # acount: string; address
     # number: BigInt; block number
@@ -257,7 +257,7 @@ Example
     var chain_id = op.nonce_at(address, number)
 
 14. send_transaction
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 send_transaction() injects a signed transaction into the pending pool for execution.
 
@@ -265,7 +265,7 @@ If the transaction was a contract creation use the TransactionReceipt method to 
 contract address after the transaction has been mined.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # tx: string; signed transaction in hex format
     # id: empty or self-defined id, used to identify this request
@@ -274,7 +274,7 @@ Example
 
 
 15. call_contract
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 call_contract() executes a message call transaction, which is directly executed in the VM
 of the node, but never mined into the blockchain.
@@ -284,7 +284,7 @@ case the code is taken from the latest known block. Note that state from very ol
 blocks might not be available.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # call_msg: Dictionary; call message
     # block_number: String; block number
@@ -295,20 +295,20 @@ Example
 
 
 16. suggest_gas_price
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 
 suggest_gas_price() retrieves the currently suggested gas price to allow a timely
 execution of a transaction.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: Dictionary
     var chain_id = op.suggest_gas_price()
 
 17. estimate_gas
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 estimate_gas() tries to estimate the gas needed to execute a specific transaction based on
 the current pending state of the backend blockchain. There is no guarantee that this is
@@ -316,7 +316,7 @@ the true gas limit requirement as other transactions may be added or removed by 
 but it should provide a basis for setting a reasonable default.
 
 Example
-~~~~~~~
+^^^^^^^
 .. code-block:: gdscript
     # call_msg: Dictionary; call message
     # id: empty or self-defined id, used to identify this request
@@ -332,7 +332,7 @@ The LegacyTx class is a wrapper designed to support this transaction type.
 It includes the variables and methods needed to create a transaction.
 
 Example
-~~~~~~~
+^^^^^^^
 The following example demonstrates how to construct a LegacyTx object and set its various properties.
 
 .. code-block:: gdscript
@@ -1004,7 +1004,7 @@ Additionally, the return value of the `g()` function is designed to include comp
     var h = ABIHelper.new()
     var res = h.unmarshal_from_json(CONTRACT_ABI)
 
-    var callret = "000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000003600000000000000000000000008eee12bd33ec72a277ffa9ddf246759878589d3b0000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000400400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f54455354000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b737472696e675f7465737400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f74657374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004d535452494e475f544553545f4d4f52455f5448414e5f33325f42595445535f6162636465666768696a6b6c6d6e6f707172737475767778797a5f3030303030303031313131313132323232323200000000000000000000000000000000000000"
+    var callret = "000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000003600000000000000000000000008eee12bd33ec72a277ffa9ddf246759878589d3b0000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000040040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f54455354000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b737472696e675f7465737400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000b535452494e475f74657374000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004d535452494e475f544553545f4d4f52455f5448414e5f33325f42595445535f6162636465666768696a6b6c6d6e6f707172737475767778797a5f3030303030303031313131313132323232323200000000000000000000000000000000000000"
     var result = {}
     var err = h.unpack_into_dictionary("g", callret.hex_decode(), result)
     if err != OK:
@@ -1026,7 +1026,7 @@ Additionally, the return value of the `g()` function is designed to include comp
         assert(false, "unpack_into_array failed!")
 
     # example correct output:
-    # [[1, ["2", "3"], [[[[["STRING_TEST", "string_test"]]], [4, 0, 0, 0, 0, 0, 0, 0, 0, 0]]], ["57896044618658097711785492504343953926634992332820282019728792003956564819967", "57896044618658097711785492504343953926634992332820282019728792003956564819966", "-57896044618658097711785492504343953926634992332820282019728792003956564819968"]], [[[["STRING_test", "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"]]], [8, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "8eee12bd33ec72a277ffa9ddf246759878589d3b", "9"]
+    # [[1, ["2", "3"], [[[[["STRING_TEST", "string_test"]]], [4, 0, 0, 0, 0, 0, 0, 0, 0, 0]]], ["57896044618658097711785492504343953926634992332820282019728792003956564819967", "57896044618658097711785492504343953926634992332820282019728792003956564819966", "-57896044618658097711785492504343953926634992332820282019728792003956564819968"]], [[[["STRING_test", "STRING_TEST_MORE_THAN_32_BYTES_abcdefghijklmnopqrstuvwxyz_0000000111111222222"]]], [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], "8eee12bd33ec72a277ffa9ddf246759878589d3b", "9"]
 
 The above two examples correspond to using `unpack_into_dictionary` and `unpack_into_array` to decode ABI-encoded data. Their usage is as follows:
 
