@@ -21,7 +21,7 @@ Optimism
 Optimism is a class used for interacting with the OP network. It encapsulates the JSON-RPC interfaces and core protocols needed for interacting with the OP network.
 
 Example
---------
+^^^^^^^
 
 .. code-block:: gdscript
 
@@ -41,12 +41,12 @@ Example
     var rpc_resp = op.call_contract(call_msg, "")
 
 How to get Node's RPC URL
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 TODO
 
 RPC methods
------------
+^^^^^^^^^^^^^^
 
 For RPC requests, we offer two processing methods:
 
