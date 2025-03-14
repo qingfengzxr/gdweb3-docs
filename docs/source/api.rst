@@ -21,7 +21,7 @@ Optimism
 Optimism is a class used for interacting with the OP network. It encapsulates the JSON-RPC interfaces and core protocols needed for interacting with the OP network.
 
 Example
------------
+--------
 
 .. code-block:: gdscript
 
@@ -328,14 +328,14 @@ Example
 
 
 LegacyTx
---------
+========
 When interacting with a blockchain network, we usually need to send a transaction to it.
 Legacy is a basic transaction type defined in the ETH protocol.
 The LegacyTx class is a wrapper designed to support this transaction type.
 It includes the variables and methods needed to create a transaction.
 
 Example
-~~~~~~~
+-------
 The following example demonstrates how to construct a LegacyTx object and set its various properties.
 
 .. code-block:: gdscript
@@ -357,7 +357,8 @@ The following example demonstrates how to construct a LegacyTx object and set it
     legacyTx.set_to_address(CONTRACT_ADDRESS)
 
 Methods
-~~~~~~~
+-------
+
 1. set_chain_id
 ^^^^^^^^^^^^^^^
 Sets the chain ID for the transaction.
@@ -550,13 +551,14 @@ Returns:
 
 
 BigInt
-------
+========
 The BigInt class implements some basic operations related to large numbers, utilizing the GMP library to fulfill its requirements.
 
 Methods
-~~~~~~~
+--------
+
 1. add
-~~~~~~~~~~~
+^^^^^^^
 Add two BigInt objects.
 
 .. code-block:: gdscript
@@ -566,7 +568,7 @@ Add two BigInt objects.
     var res = bigInt.add(other)
 
 2. sub
-~~~~~~~~~~~
+^^^^^^^^^^^
 Subtract two BigInt objects.
 
 .. code-block:: gdscript
@@ -576,7 +578,7 @@ Subtract two BigInt objects.
     var res = bigInt.sub(other)
 
 3. mul
-~~~~~~~~~~~
+^^^^^^^^^^^
 Multiply two BigInt objects.
 
 .. code-block:: gdscript
@@ -586,7 +588,7 @@ Multiply two BigInt objects.
     var res = bigInt.mul(other)
 
 4. div
-~~~~~~~~~~~
+^^^^^^^^^^^
 Divide two BigInt objects.
 
 .. code-block:: gdscript
@@ -596,7 +598,7 @@ Divide two BigInt objects.
     var res = bigInt.div(other)
 
 5. mod
-~~~~~~~~~~~
+^^^^^^^^^^^
 Get the remainder of the division of two BigInt objects.
 
 .. code-block:: gdscript
@@ -606,7 +608,7 @@ Get the remainder of the division of two BigInt objects.
     var res = bigInt.mod(other)
 
 6. abs
-~~~~~~~~~~~
+^^^^^^^^^^^
 Get the absolute value of a BigInt object.
 
 .. code-block:: gdscript
@@ -615,7 +617,7 @@ Get the absolute value of a BigInt object.
     var res = bigInt.abs()
 
 7. cmp
-~~~~~~~~~~~
+^^^^^^^^^^^
 Compare two BigInt objects.
 
 .. code-block:: gdscript
@@ -628,7 +630,7 @@ Returns:
     int: 1 if bigInt > other, 0 if bigInt == other, -1 if bigInt < other
 
 8. sgn
-~~~~~~~~~~~
+^^^^^^^^^^^
 Returns the sign of m_number as an integer:
 
 .. code-block:: gdscript
@@ -640,7 +642,7 @@ Returns:
     int: 1 if bigInt > 0, 0 if bigInt == 0, -1 if bigInt < 0
 
 8. is_zero
-~~~~~~~~~~~
+^^^^^^^^^^^
 Check if the BigInt object is zero.
 
 .. code-block:: gdscript
@@ -649,7 +651,7 @@ Check if the BigInt object is zero.
     var res = bigInt.is_zero()
 
 9. from_string
-~~~~~~~~~~~
+^^^^^^^^^^^^^^
 Create a BigInt object from a string.
 
 .. code-block:: gdscript
@@ -659,7 +661,7 @@ Create a BigInt object from a string.
     bigInt.from_string(str)
 
 10. from_hex
-~~~~~~~~~~~
+^^^^^^^^^^^^
 Create a BigInt object from a hex string.
 
 .. code-block:: gdscript
@@ -669,7 +671,7 @@ Create a BigInt object from a hex string.
     bigInt.from_hex(str)
 
 11. get_string
-~~~~~~~~~~~
+^^^^^^^^^^^^^^
 Get the string representation of the BigInt object.
 
 .. code-block:: gdscript
@@ -678,7 +680,7 @@ Get the string representation of the BigInt object.
     var res = bigInt.get_string()
 
 12. to_hex
-~~~~~~~~~~~
+^^^^^^^^^^^^
 Get the hex string with 0x prefix representation of the BigInt object.
 
 .. code-block:: gdscript
@@ -688,14 +690,14 @@ Get the hex string with 0x prefix representation of the BigInt object.
 
 
 JsonrpcHelper
--------------
+=============
 .. note::
    This is an internal class and is not intended for direct user use at the moment. We will provide relevant documentation when needed.
 
 
 
 ABIHelper
----------
+=========
 The Ethereum ABI (Application Binary Interface) is a standardized interface between Ethereum smart contracts and external applications. The ABI defines how to encode and decode the functions and events of a smart contract, allowing external applications to interact with the smart contract.
 
 For more details on ABI, you can refer to `here <https://docs.soliditylang.org/en/latest/abi-spec.html>`_.
@@ -705,7 +707,7 @@ The ABIHelper class is a utility class for handling ABI encoding and decoding. I
 Unit test code file: abihelper_unit_test.gd
 
 Methods
-~~~~~~~
+--------
 1. unmarshal_from_json
 ^^^^^^^^^^^^^^^^^^^^^^
 Parse the ABI JSON string of the smart contract into the ABIHelper object. This sets a series of properties required for ABI encoding and decoding, including function lists, parameter types, etc., for the ABIHelper object.
@@ -1053,16 +1055,16 @@ For `unpack_into_array`, the decoded value is an array where each element corres
 ---------------------------------------------------------------------------------------------------------
 
 EthAccountManager
------------------
+==================
 `EthAccountManager` is a class for managing Ethereum accounts. It provides functionality to create new Ethereum accounts and import accounts from private keys.
 
 .. warning::
      The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
 
 Methods
-~~~~~~~
+--------
 1. create
-~~~~~~~~~~~
+^^^^^^^^^^^
 Creates a new Ethereum account.
 
 .. code-block:: gdscript
@@ -1084,7 +1086,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. privateKeyToAccount
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 Creates an Ethereum account based on the provided private key.
 
 .. code-block:: gdscript
@@ -1103,7 +1105,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 Example
-~~~~~~~
+^^^^^^^
 The following example demonstrates how to use EthAccountManager to create a new account and import an account from a private key:
 
 .. code-block:: gdscript
@@ -1123,7 +1125,7 @@ The following example demonstrates how to use EthAccountManager to create a new 
 ---------------------------------------------------------------------------------------------------------
 
 EthAccount
-----------
+===========
 `EthAccount` is a class that handles basic operations for Ethereum accounts. It provides access to account information and signing data. Through `EthAccount`, users can obtain the private key, public key, and address of the account, and use the account's private key to sign data.
 
 .. note::
@@ -1133,7 +1135,7 @@ EthAccount
     The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
 
 Methods
-~~~~~~~
+--------
 1. get_private_key
 ^^^^^^^^^^^^^^^^^^
 Gets the private key of the account.
@@ -1149,7 +1151,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. get_public_key
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 Gets the public key of the account.
 
 .. code-block:: gdscript
@@ -1163,7 +1165,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 3. get_address
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 Gets the address of the account (in byte format).
 
 .. code-block:: gdscript
@@ -1177,7 +1179,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 4. get_hex_address
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 Gets the address of the account in hexadecimal format.
 
 .. code-block:: gdscript
@@ -1191,7 +1193,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 5. sign_data
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 Signs the provided data using the account's private key.
 
 .. code-block:: gdscript
@@ -1209,7 +1211,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 6. sign_data_with_prefix
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 Signs the data after computing the keccak256 hash of the Ethereum signed message prefix.
 
 .. code-block:: gdscript
@@ -1231,7 +1233,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 Example
-~~~~~~~
+^^^^^^^
 The following example demonstrates how to perform basic operations using EthAccount:
 
 .. code-block:: gdscript
@@ -1255,16 +1257,16 @@ The following example demonstrates how to perform basic operations using EthAcco
 ---------------------------------------------------------------------------------------------------------
 
 EthWalletManager
-----------------
+================
 `EthWalletManager` is a class for managing multiple Ethereum HD wallets. It provides functionality to create, load, and save wallets. Through this manager, new wallet instances can be generated or existing wallets can be restored from mnemonic phrases.
 
 .. warning::
     The APIs provided by this class have not been audited and may have security vulnerabilities. Please take precautions, properly clear memory, securely store private keys, and thoroughly test transaction receiving and sending functions before using in production!
 
 Methods
-~~~~~~~
+--------
 1. create
-~~~~~~~~~~~
+^^^^^^^^^^^
 Creates a new Ethereum wallet.
 
 .. code-block:: gdscript
@@ -1287,7 +1289,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. from_mnemonic
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 Restore a wallet from mnemonic phrase.
 
 .. code-block:: gdscript
@@ -1307,7 +1309,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 3. load
-~~~~~~~~~~~
+^^^^^^^^^^^
 Load an wallet.
 
 .. code-block:: gdscript
@@ -1321,7 +1323,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 4. save
-~~~~~~~~~~~
+^^^^^^^^^^^
 Save the wallet.
 
 .. code-block:: gdscript
@@ -1339,7 +1341,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 Example
-~~~~~~~
+"""""""
 A complete example code for reference.
 
 .. code-block:: gdscript
@@ -1359,7 +1361,7 @@ A complete example code for reference.
 ---------------------------------------------------------------------------------------------------------
 
 EthWallet
----------
+=========
 `EthWallet` is a class that implements hierarchical deterministic (HD) wallet functionality. It allows users to manage multiple Ethereum accounts and provides functions for adding, removing accounts, and handling mnemonic phrases.
 
 .. warning::
@@ -1369,9 +1371,9 @@ EthWallet
     Instances of `EthWallet` must be generated through `EthWalletManager` to ensure proper initialization and management of the wallet.
 
 Methods
-~~~~~~~
+-------
 1. add
-~~~~~~~~~~~
+^^^^^^^
 Adds a new Ethereum account to the wallet.
 
 .. code-block:: gdscript
@@ -1394,7 +1396,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. remove_address
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 Removes an account by address.
 
 .. code-block:: gdscript
@@ -1412,7 +1414,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 3. remove
-~~~~~~~~~~~
+^^^^^^^^^
 Removes the account by index.
 .. code-block:: gdscript
 
@@ -1429,7 +1431,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 4. clear
-~~~~~~~~~~~
+^^^^^^^^
 Safely clears all wallet data, including accounts and mnemonic phrases.
 
 .. code-block:: gdscript
@@ -1443,7 +1445,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 5. get_accounts
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 Gets all accounts in the wallet.
 
 .. code-block:: gdscript
@@ -1457,7 +1459,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 6. get_mnemonic
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 Gets the wallet's mnemonic phrase following the BIP39 protocol, which can be used for export to other BIP32 standard HD wallets.
 
 .. code-block:: gdscript
@@ -1471,7 +1473,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 7. save
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 Save Ethereum wallet.
 
 .. code-block:: gdscript
@@ -1485,7 +1487,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 8. load
-~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 Loads an Ethereum wallet.
 
 .. code-block:: gdscript
@@ -1499,7 +1501,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 Example
-~~~~~~~
+^^^^^^^
 A complete example code for reference.
 
 .. code-block:: gdscript
@@ -1539,10 +1541,10 @@ A complete example code for reference.
 ---------------------------------------------------------------------------------------------------------
 
 Secp256k1Wrapper
-----------------
+================
 
 KeccakWrapper
---------------
+================
 
 
 
