@@ -1,8 +1,9 @@
+=============
 API Reference
 =============
 
 Web3
-----
+====
 
 The web3 class is an abstraction for all blockchain networks. You can use this class to obtain instances for interacting with different networks.
 
@@ -16,11 +17,12 @@ Example
 
 
 Optimism
---------
+========
 Optimism is a class used for interacting with the OP network. It encapsulates the JSON-RPC interfaces and core protocols needed for interacting with the OP network.
 
 Example
-^^^^^^^
+-----------
+
 .. code-block:: gdscript
 
     const NODE_RPC_URL := "https://snowy-capable-wave.optimism-sepolia.quiknode.pro/360d0830d495913ed76393730e16efb929d0f652"
@@ -39,11 +41,12 @@ Example
     var rpc_resp = op.call_contract(call_msg, "")
 
 How to get Node's RPC URL
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
+
 TODO
 
 RPC methods
-~~~~~~~~~~~
+-----------
 
 For RPC requests, we offer two processing methods:
 
@@ -55,21 +58,21 @@ Asynchronous call interfaces are uniformly prefixed with "async_" before the syn
 
 
 1. chain_id
-~~~~~~~~~~~
+^^^^^^^^^^^
 chain_id() retrieves the current chain ID for transaction replay protection.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: BigInt
    var chain_id = op.chain_id()
 
 2. network_id
-~~~~~~~~~~~~~
+^^^^^^^^^^^^^
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: Dictionary
@@ -77,7 +80,7 @@ Example
 
 
 3. block_by_hash
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 block_by_hash() returns the given full block information.
 
@@ -87,7 +90,7 @@ block_by_hash() returns the given full block information.
     if you don't need all transactions or uncle headers.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # hash: string
     # id: empty or self-defined id, used to identify this request
@@ -97,12 +100,12 @@ Example
 
 
 4. header_by_hash
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 header_by_hash() returns the block header with the given hash.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # hash: string
     # id: empty or self-defined id, used to identify this request
@@ -111,7 +114,7 @@ Example
 
 
 5. block_by_number
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 block_by_number() returns a block from the current canonical chain. If number is null, the
 latest known block is returned.
@@ -122,7 +125,7 @@ latest known block is returned.
     if you don't need all transactions or uncle headers.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # number: BigInt; block number
     # id: empty or self-defined id, used to identify this request
@@ -131,13 +134,13 @@ Example
     var chain_id = op.block_by_number(number)
 
 6. header_by_number
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 HeaderByNumber returns a block header from the current canonical chain. If number is
 null, the latest known header is returned.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # number: BigInt; block number
     # id: empty or self-defined id, used to identify this request
@@ -146,12 +149,12 @@ Example
     var chain_id = op.header_by_number(number)
 
 7. block_number
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 block_number() returns the most recent block number
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: Dictionary
@@ -159,7 +162,7 @@ Example
 
 
 8. block_receipts_by_number
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 block_receipts_by_number() returns the receipts of a given block number. The block number can be specified as follows:
 
@@ -171,7 +174,7 @@ block_receipts_by_number() returns the receipts of a given block number. The blo
 * "default": any positive integer, representing the block number
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # number: BigInt; block number
     # id: empty or self-defined id, used to identify this request
@@ -181,12 +184,12 @@ Example
 
 
 9. block_receipts_by_hash
-~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 block_receipts_by_hash() returns the receipts of a given block hash.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # hash: string; block hash
     # id: empty or self-defined id, used to identify this request
@@ -195,12 +198,12 @@ Example
 
 
 10. transaction_by_hash
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 transaction_by_hash() returns the transaction with the given hash.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # hash: string; transaction hash
     # id: empty or self-defined id, used to identify this request
@@ -209,7 +212,7 @@ Example
 
 
 11. transaction_receipt_by_hash
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 transaction_receipt_by_hash() returns the receipt of a given transaction hash.
 
@@ -218,7 +221,7 @@ transaction_receipt_by_hash() returns the receipt of a given transaction hash.
     Note that the receipt is not available for pending transactions.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # hash: string; transaction hash
     # id: empty or self-defined id, used to identify this request
@@ -226,14 +229,14 @@ Example
     var chain_id = op.transaction_receipt_by_hash(hash)
 
 12. balance_at
-~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 balance_at() returns the wei balance of the given account.
 The block number can be nil, in which case the balance is taken from the latest known block.
 
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # acount: string; address
     # number: BigInt; block number
@@ -243,12 +246,12 @@ Example
 
 
 13. nonce_at
-~~~~~~~~~~~
+^^^^^^^^^^^^
 
 nonce_at() returns the nonce of the given account.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # acount: string; address
     # number: BigInt; block number
@@ -257,7 +260,7 @@ Example
     var chain_id = op.nonce_at(address, number)
 
 14. send_transaction
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 send_transaction() injects a signed transaction into the pending pool for execution.
 
@@ -265,7 +268,7 @@ If the transaction was a contract creation use the TransactionReceipt method to 
 contract address after the transaction has been mined.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # tx: string; signed transaction in hex format
     # id: empty or self-defined id, used to identify this request
@@ -274,7 +277,7 @@ Example
 
 
 15. call_contract
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
 
 call_contract() executes a message call transaction, which is directly executed in the VM
 of the node, but never mined into the blockchain.
@@ -284,7 +287,7 @@ case the code is taken from the latest known block. Note that state from very ol
 blocks might not be available.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # call_msg: Dictionary; call message
     # block_number: String; block number
@@ -295,20 +298,20 @@ Example
 
 
 16. suggest_gas_price
-~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 suggest_gas_price() retrieves the currently suggested gas price to allow a timely
 execution of a transaction.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # id: empty or self-defined id, used to identify this request
     # return: Dictionary
     var chain_id = op.suggest_gas_price()
 
 17. estimate_gas
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 estimate_gas() tries to estimate the gas needed to execute a specific transaction based on
 the current pending state of the backend blockchain. There is no guarantee that this is
@@ -316,7 +319,7 @@ the true gas limit requirement as other transactions may be added or removed by 
 but it should provide a basis for setting a reasonable default.
 
 Example
-^^^^^^^
+"""""""
 .. code-block:: gdscript
     # call_msg: Dictionary; call message
     # id: empty or self-defined id, used to identify this request
@@ -332,7 +335,7 @@ The LegacyTx class is a wrapper designed to support this transaction type.
 It includes the variables and methods needed to create a transaction.
 
 Example
-^^^^^^^
+~~~~~~~
 The following example demonstrates how to construct a LegacyTx object and set its various properties.
 
 .. code-block:: gdscript
@@ -422,7 +425,7 @@ Returns:
     void
 
 5. set_to_address
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 Sets the address for the transaction.
 
 .. code-block:: gdscript
@@ -436,7 +439,7 @@ Returns:
     void
 
 6. set_value
-^^^^^^^^^^^^
+^^^^^^^^^^^^^
 Sets the value for the transaction.
 
 .. code-block:: gdscript
@@ -483,7 +486,7 @@ Returns:
     PackedByteArray
 
 9. hash
-^^^^^^^
+^^^^^^^^
 Call this function to get the hash of the transaction. It nceessary to call after sign the transaction.
 
 .. code-block:: gdscript
@@ -514,7 +517,7 @@ Returns:
     int: 0 if success, -1 if failed
 
 11. sign_tx_by_account
-^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 Sign the LegacyTx by use EthAccount.
 
 .. code-block:: gdscript
@@ -531,7 +534,7 @@ Returns:
 
 
 12. signedtx_marshal_binary
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Marshal the signed transaction into binary data and encode to hex string.
 
 .. code-block:: gdscript
@@ -553,7 +556,7 @@ The BigInt class implements some basic operations related to large numbers, util
 Methods
 ~~~~~~~
 1. add
-^^^^^^
+~~~~~~~~~~~
 Add two BigInt objects.
 
 .. code-block:: gdscript
@@ -563,7 +566,7 @@ Add two BigInt objects.
     var res = bigInt.add(other)
 
 2. sub
-^^^^^^
+~~~~~~~~~~~
 Subtract two BigInt objects.
 
 .. code-block:: gdscript
@@ -573,7 +576,7 @@ Subtract two BigInt objects.
     var res = bigInt.sub(other)
 
 3. mul
-^^^^^^
+~~~~~~~~~~~
 Multiply two BigInt objects.
 
 .. code-block:: gdscript
@@ -583,7 +586,7 @@ Multiply two BigInt objects.
     var res = bigInt.mul(other)
 
 4. div
-^^^^^^
+~~~~~~~~~~~
 Divide two BigInt objects.
 
 .. code-block:: gdscript
@@ -593,7 +596,7 @@ Divide two BigInt objects.
     var res = bigInt.div(other)
 
 5. mod
-^^^^^^
+~~~~~~~~~~~
 Get the remainder of the division of two BigInt objects.
 
 .. code-block:: gdscript
@@ -603,7 +606,7 @@ Get the remainder of the division of two BigInt objects.
     var res = bigInt.mod(other)
 
 6. abs
-^^^^^^
+~~~~~~~~~~~
 Get the absolute value of a BigInt object.
 
 .. code-block:: gdscript
@@ -612,7 +615,7 @@ Get the absolute value of a BigInt object.
     var res = bigInt.abs()
 
 7. cmp
-^^^^^^
+~~~~~~~~~~~
 Compare two BigInt objects.
 
 .. code-block:: gdscript
@@ -625,7 +628,7 @@ Returns:
     int: 1 if bigInt > other, 0 if bigInt == other, -1 if bigInt < other
 
 8. sgn
-^^^^^^
+~~~~~~~~~~~
 Returns the sign of m_number as an integer:
 
 .. code-block:: gdscript
@@ -637,7 +640,7 @@ Returns:
     int: 1 if bigInt > 0, 0 if bigInt == 0, -1 if bigInt < 0
 
 8. is_zero
-^^^^^^^^^^
+~~~~~~~~~~~
 Check if the BigInt object is zero.
 
 .. code-block:: gdscript
@@ -646,7 +649,7 @@ Check if the BigInt object is zero.
     var res = bigInt.is_zero()
 
 9. from_string
-^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Create a BigInt object from a string.
 
 .. code-block:: gdscript
@@ -656,7 +659,7 @@ Create a BigInt object from a string.
     bigInt.from_string(str)
 
 10. from_hex
-^^^^^^^^^^^^
+~~~~~~~~~~~
 Create a BigInt object from a hex string.
 
 .. code-block:: gdscript
@@ -666,7 +669,7 @@ Create a BigInt object from a hex string.
     bigInt.from_hex(str)
 
 11. get_string
-^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Get the string representation of the BigInt object.
 
 .. code-block:: gdscript
@@ -675,7 +678,7 @@ Get the string representation of the BigInt object.
     var res = bigInt.get_string()
 
 12. to_hex
-^^^^^^^^^^
+~~~~~~~~~~~
 Get the hex string with 0x prefix representation of the BigInt object.
 
 .. code-block:: gdscript
@@ -812,7 +815,7 @@ We will use the packed result as the data for the `LegacyTx` and send it to the 
 
 For some complex business scenarios, people often define custom data structures and pass them when calling functions, such as arrays, structs, nested structs, etc.
 
-Here, we use a complex nested struct as an example to illustrate how to use the `pack` function for complex data structures. Through this example, you will fully understand the behavior of the `pack` function.
+Here, we use a complex nested struct as an example to illustrate how to use the pack function for complex data structures. Through this example, you will fully understand the behavior of the `pack` function.
 
 Now we have a contract that defines many complex data structures, with structs nested within other structs. The contract is defined as follows:
 
@@ -1059,7 +1062,7 @@ EthAccountManager
 Methods
 ~~~~~~~
 1. create
-^^^^^^^^^
+~~~~~~~~~~~
 Creates a new Ethereum account.
 
 .. code-block:: gdscript
@@ -1081,7 +1084,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. privateKeyToAccount
-^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Creates an Ethereum account based on the provided private key.
 
 .. code-block:: gdscript
@@ -1146,7 +1149,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. get_public_key
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Gets the public key of the account.
 
 .. code-block:: gdscript
@@ -1160,7 +1163,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 3. get_address
-^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Gets the address of the account (in byte format).
 
 .. code-block:: gdscript
@@ -1174,7 +1177,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 4. get_hex_address
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Gets the address of the account in hexadecimal format.
 
 .. code-block:: gdscript
@@ -1188,7 +1191,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 5. sign_data
-^^^^^^^^^^^^
+~~~~~~~~~~~
 Signs the provided data using the account's private key.
 
 .. code-block:: gdscript
@@ -1206,7 +1209,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 6. sign_data_with_prefix
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Signs the data after computing the keccak256 hash of the Ethereum signed message prefix.
 
 .. code-block:: gdscript
@@ -1261,7 +1264,7 @@ EthWalletManager
 Methods
 ~~~~~~~
 1. create
-^^^^^^^^^
+~~~~~~~~~~~
 Creates a new Ethereum wallet.
 
 .. code-block:: gdscript
@@ -1284,7 +1287,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. from_mnemonic
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Restore a wallet from mnemonic phrase.
 
 .. code-block:: gdscript
@@ -1304,7 +1307,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 3. load
-^^^^^^^
+~~~~~~~~~~~
 Load an wallet.
 
 .. code-block:: gdscript
@@ -1318,7 +1321,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 4. save
-^^^^^^^
+~~~~~~~~~~~
 Save the wallet.
 
 .. code-block:: gdscript
@@ -1368,7 +1371,7 @@ EthWallet
 Methods
 ~~~~~~~
 1. add
-^^^^^^
+~~~~~~~~~~~
 Adds a new Ethereum account to the wallet.
 
 .. code-block:: gdscript
@@ -1391,7 +1394,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 2. remove_address
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Removes an account by address.
 
 .. code-block:: gdscript
@@ -1409,7 +1412,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 3. remove
-^^^^^^^^^
+~~~~~~~~~~~
 Removes the account by index.
 .. code-block:: gdscript
 
@@ -1426,7 +1429,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 4. clear
-^^^^^^^^
+~~~~~~~~~~~
 Safely clears all wallet data, including accounts and mnemonic phrases.
 
 .. code-block:: gdscript
@@ -1440,7 +1443,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 5. get_accounts
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Gets all accounts in the wallet.
 
 .. code-block:: gdscript
@@ -1454,7 +1457,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 6. get_mnemonic
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~
 Gets the wallet's mnemonic phrase following the BIP39 protocol, which can be used for export to other BIP32 standard HD wallets.
 
 .. code-block:: gdscript
@@ -1468,7 +1471,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 7. save
-^^^^^^^
+~~~~~~~~~~~
 Save Ethereum wallet.
 
 .. code-block:: gdscript
@@ -1482,7 +1485,7 @@ Returns:
 ---------------------------------------------------------------------------------------------------------
 
 8. load
-^^^^^^^
+~~~~~~~~~~~
 Loads an Ethereum wallet.
 
 .. code-block:: gdscript

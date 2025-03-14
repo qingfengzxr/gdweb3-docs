@@ -1,3 +1,4 @@
+==============
 Hello Optimism
 ==============
 
@@ -6,7 +7,7 @@ However, we believe that with a learning mindset, you can quickly get started. W
 We call this tutorial **Hello Optimism** (because we use the Optimism network), just like the classic **Hello World**.
 
 1. Preparation
-------------
+==============
 
 A blockchain network is a decentralized network consisting of many P2P nodes, each running independently. These nodes communicate through agreed-upon protocols to reach consensus and maintain data called the blockchain.
 If you don't fully understand these technologies, that's okay. You can think of it as the server part in network game development. The difference is that this server is completely public, its contents are maintained collectively, and everything is visible to everyone.
@@ -21,7 +22,7 @@ Therefore, we need two key things to start development:
 Let's prepare these two things.
 
 1.1. Blockchain Network
-~~~~~~~~~~~~~~~
+-----------------------
 
 In this tutorial, we use the **Optimism** test network. Optimism is an ETH Layer 2 solution with excellent performance and a robust ecosystem.
 You can learn more about Optimism in the `Optimism official documentation <https://www.optimism.io/>`_.
@@ -41,7 +42,7 @@ For this, you'll need a **MetaMask** wallet and switch to the **Optimism** test 
 For more information about MetaMask, please refer to: https://metamask.io/faqs/
 
 1.1.1. Installing MetaMask
-~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Go to the Google Chrome Web Store, search for **MetaMask**, and click **Add to Chrome** to install. Make sure to select the plugin with the blue verification badge to avoid scams.
 
@@ -49,7 +50,7 @@ Go to the Google Chrome Web Store, search for **MetaMask**, and click **Add to C
    :alt: MetaMask Installation
 
 1.1.2. Creating a Wallet
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 After installation, follow MetaMask's setup process to create a new wallet. During the `Secure your wallet` step, make sure to back up your seed phrase (12 words) - this is the only way to recover your wallet.
 This is particularly important in production environments. Every blockchain user must understand that blockchain networks are decentralized with no central management authority - if you lose your seed phrase, your assets cannot be recovered.
@@ -65,7 +66,7 @@ Developers should be especially aware of this and prioritize protecting user ass
    :alt:
 
 1.1.3 Switching to Optimism Test Network
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There are two ways to switch networks:
 
@@ -91,7 +92,7 @@ After adding, you'll see the **Op Sepolia** test network in MetaMask.
    :alt:
 
 1.2 Getting Test Tokens
-~~~~~~~~~~~~~~~~
+-----------------------
 
 In blockchain networks, we need a special currency to pay for our operations on the network. This currency is called **Gas**. In the **Optimism** network, we use **ETH** as **Gas**.
 
@@ -102,7 +103,7 @@ If you can't find a suitable method, you can leave your email address & optimism
 
 
 2. Starting Development
----------------
+=======================
 
 After preparing the above, we can start development. This tutorial will guide you step-by-step to implement a simple function that can send a transaction to the **Optimism** network to call the `sendHello` contract interface.
 Then your **Say Hello** action will be permanently recorded on the blockchain. You can name the account address used in this transaction in the future. When you use the account address to call the `whoami` interface in the future, the contract will return your name.
@@ -114,9 +115,9 @@ Frontend: We use the **Godot** engine to support the development of game interac
 Smart contract (server program): We use the **Solidity** language to write smart contracts and deploy them to the blockchain network.
 
 2.1. Creating a New Godot Project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------
 
-We start by creating a new Godot project. In your Godot Project Manager, click **+Create** button on the top left to create a new Godot Project. 
+We start by creating a new Godot project. In your Godot Project Manager, click **+Create** button on the top left to create a new Godot Project.
 
 .. image:: ./_static/setting-up-project-01.png
    :alt:
@@ -130,7 +131,7 @@ You can find more detail of setting up a new project in the official documentati
 
 
 2.2. Writing Hello Optimism Smart Contracts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------------
 In the ETH ecosystem, most virtual machines are using EVM, and Optimism is no exception. Writing EVM smart contracts requires the use of the Solidity language (there are also other projects that can support the use of other languages to write EVM smart contracts, and readers who are interested can explore this aspect on their own).
 
 Below is a simple **HelloWorld** smart contract. This contract has three interfaces:
@@ -168,7 +169,7 @@ Among them:
 
 
 2.3. Compiling and Deploying Hello Optimism Smart Contracts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------------------
 
 In the deployment of contracts, this tutorial uses Remix because it's a very useful online IDE that helps with quick hands-on experience.
 Of course, you can also choose other development frameworks like Truffle, Hardhat, etc., which often have more powerful capabilities but require some time to learn. You can explore this aspect on your own in this tutorial.
@@ -202,7 +203,7 @@ You can view the information about this contract on the OP browser: https://sepo
 
 
 2.4. Using GDScript to Call Hello Optimism Smart Contracts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------------------
 
 Next, we use GDScript to write code to call the deployed contract. We need the following four things to start deployment:
 
@@ -313,11 +314,11 @@ Among them, `current_address` represents the account address currently used. Thi
 
 
 2.5. Writing Game UI
-~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 We prepared a small demo to visualize the above functionality: https://github.com/qingfengzxr/HelloOptimism
 
-Godot has a very powerful and easy-to-use UI system that allows you to build your Game UI fast and nicely. 
+Godot has a very powerful and easy-to-use UI system that allows you to build your Game UI fast and nicely.
 
 This demo include a **LineEdit** UI component to handle `username` input, a **Button** UI component to call `callHello` and `sendHello` functions, and a **Label** UI component to show the response from the chain. If `username` is empty, **Button** clicking will call `callHello` function in the contract, and return a default `Hello, Optimism!` from the contract. If `username` is set, **Button** clicking will call `sendHello` function in the contract first, with the transaction body containing your `username` and your `privateKey`. Then it will call whoami function to get the previously sent username from the contract with the address converted from the `privateKey`.
 
@@ -329,7 +330,7 @@ By default the editor window mainly contains 5 parts. The scene tree for current
 .. image:: ./_static/gui-02.png
    :alt:
 
-This demo including only one node as the main UI scene and two gdscript files. The `main.gd` is used to control the actual UI, and the `hello_optimism.gd` is autoloaded as the static API for the simple contract. 
+This demo including only one node as the main UI scene and two gdscript files. The `main.gd` is used to control the actual UI, and the `hello_optimism.gd` is autoloaded as the static API for the simple contract.
 
 Autoloaded script could be managed in **Project -> Project Settings -> Globals -> Autoload**. Once a script is set as autoloaded, it can be called without attaching to a instantiated node.
 
@@ -348,7 +349,7 @@ You can setup your privateKey at inspector of the main node attached with main.g
 .. image:: ./_static/gui-03.png
    :alt:
 
-The **Button** submit event is passed to `main.gd` by connecting `pressed` event signal to `_on_button_pressed` function. 
+The **Button** submit event is passed to `main.gd` by connecting `pressed` event signal to `_on_button_pressed` function.
 
 First select the **Button** node in the main node hierarchy
 
@@ -369,7 +370,7 @@ The overall gdscript code for this **Hello World** demo is very simple and shown
 
 Use **extends Control** to inherit Godot's built-in Control UI class.
 
-Use **$../..** to get a child node component with specific types as variables. 
+Use **$../..** to get a child node component with specific types as variables.
 
 Use **func _on_button_pressed** as the event handler for the button click signal and process the main logic by interacting with GDWeb3 module.
 
@@ -404,9 +405,9 @@ Use **func _on_button_pressed** as the event handler for the button click signal
 
 
 2.6. Running the Game
-~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
-To run the game, there are three methods on the top right of the editor to use: **Run Project**, **Run Current Scene**, **Run Specific Scene**. We highlight these methods in the red box in the following screenshot. 
+To run the game, there are three methods on the top right of the editor to use: **Run Project**, **Run Current Scene**, **Run Specific Scene**. We highlight these methods in the red box in the following screenshot.
 
 .. image:: ./_static/run-game-01.png
    :alt:
